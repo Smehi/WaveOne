@@ -1,0 +1,139 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using WaveOne.Events;
+
+namespace WaveOne.Spawners
+{
+#pragma warning disable 0649
+    public class SingleTargetSpawner : MonoBehaviour
+    {
+        [SerializeField] List<SingleWave> enemyWaves = new List<SingleWave>();
+        [Tooltip("Name of the parent GameObject. To indicate a child of another object use a \"/\"")]
+        [SerializeField] string parentGameObject;
+        [SerializeField] float minTimeForNextDeployment, maxTimeForNextDeployment;
+        [SerializeField] bool SetEndPoint;
+        [SerializeField] Transform endPoint;
+        [SerializeField] TransformEvent eventAgentSpawnedSetEndPoint;
+
+        // 0 indexed.
+        private int currentWave;
+
+        // 1 indexed.
+        private int currentDeployment;
+
+        private Transform parent;
+
+        private void Start()
+        {
+            // Cache the parent GameObject.
+            GameObject go = GameObject.Find(parentGameObject); 
+            parent = go != null ? go.transform : null;
+
+            currentWave = 0;
+            currentDeployment = 1;
+
+            StartCoroutine(DeployTroops(currentWave));
+        }
+
+        private void CallDeployTroops()
+        {
+            StartCoroutine(DeployTroops(currentWave));
+        }
+
+        public IEnumerator DeployTroops(int currentWave)
+        {
+            bool finishedDeploying = false;
+            bool calculatedTroops = false;
+            int toDeploy = 0;
+            int deployedCount = 0;
+            int currentEnemy = 0;
+
+            // The coroutine only runs for a single deployment.
+            while (!finishedDeploying)
+            {
+                // Calculate the amount of troops to deploy for the current deployment and current enemy.
+                if (!calculatedTroops)
+                {
+                    if (currentEnemy < enemyWaves[currentWave].enemies.Count)
+                    {
+                        toDeploy = Mathf.FloorToInt(enemyWaves[currentWave].enemies[currentEnemy].count / enemyWaves[currentWave].deployments);
+
+                        // This means we have reached the last deployment.
+                        // At the last deployment we want to add the remainder of the enemies count.
+                        // eg. 17 % 3 = 2. This gives us a normal deployment of 5 and the remaining 2 for the last deployment.
+                        if (enemyWaves[currentWave].deployments != 1 && currentDeployment == enemyWaves[currentWave].deployments)
+                        {
+                            toDeploy += enemyWaves[currentWave].enemies[currentEnemy].count % enemyWaves[currentWave].deployments;
+                        }
+                    }
+                    else
+                    {
+                        // This means we have had all the enemies and we finished the current deployment.
+                        finishedDeploying = true;
+                    }
+
+                    // We only want to recalculate the amount to deploy when we are done with the current enemy
+                    // so we trigger this flag for the time being.
+                    calculatedTroops = true;
+                }
+
+                if (toDeploy > 0)
+                {
+                    if (parent)
+                        Instantiate(enemyWaves[currentWave].enemies[currentEnemy].enemy, transform.position, Quaternion.LookRotation(endPoint.position), parent);
+                    else
+                        Instantiate(enemyWaves[currentWave].enemies[currentEnemy].enemy, transform.position, Quaternion.LookRotation(endPoint.position));
+
+                    deployedCount++;
+
+                    if (SetEndPoint)
+                    {
+                        eventAgentSpawnedSetEndPoint.Raise(endPoint);
+                    }
+                }
+
+                // This means we deployed enough troops for the current enemy so we have to reset some flags for the next enemy.
+                if (deployedCount == toDeploy)
+                {
+                    calculatedTroops = false;
+                    toDeploy = 0;
+                    deployedCount = 0;
+                    currentEnemy++;
+                }
+
+                // Temporary amount.
+                yield return new WaitForSeconds(.8f);
+            }
+
+            // If this is the last deployment we want to reset the deployments and increase the wave counter.
+            if (currentDeployment == enemyWaves[currentWave].deployments)
+            {
+                this.currentWave++;
+                currentDeployment = 1;
+            }
+            else
+            {
+                currentDeployment++;
+
+                float randomTime = Random.Range(minTimeForNextDeployment, maxTimeForNextDeployment);
+                Invoke("CallDeployTroops", randomTime);
+            }
+        }
+
+        [System.Serializable]
+        public struct SingleWave
+        {
+            public List<EnemyCount> enemies;
+            public int deployments;
+            public int duration;
+        }
+
+        [System.Serializable]
+        public struct EnemyCount
+        {
+            public GameObject enemy;
+            public int count;
+        }
+    }
+}
