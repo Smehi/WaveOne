@@ -6,28 +6,30 @@ using WaveOne.Events;
 namespace WaveOne.Spawners
 {
 #pragma warning disable 0649
-    public class SingleTargetSpawner : MonoBehaviour
+    public class SinglePointSpawner : MonoBehaviour
     {
-        [SerializeField] List<SingleWave> enemyWaves = new List<SingleWave>();
-        [Tooltip("Name of the parent GameObject. To indicate a child of another object use a \"/\"")]
-        [SerializeField] string parentGameObject;
-        [SerializeField] float minTimeForNextDeployment, maxTimeForNextDeployment;
-        [SerializeField] bool SetEndPoint;
-        [SerializeField] Transform endPoint;
-        [SerializeField] TransformEvent eventAgentSpawnedSetEndPoint;
+        [Header("End points")]
+        [SerializeField] private bool setAgentDestination;
+        [SerializeField] private List<Transform> endPoints = new List<Transform>();
+        [SerializeField] private TransformListEvent eventAgentSpawnedSetEndPoint;
 
-        // 0 indexed.
-        private int currentWave;
+        [Header("Waves")]
+        [SerializeField] private List<SingleWave> enemyWaves = new List<SingleWave>();
+        [SerializeField] private float minTimeForNextDeployment, maxTimeForNextDeployment;
 
-        // 1 indexed.
-        private int currentDeployment;
+        [Header("Miscellaneous")]
+        [Tooltip("Name of the parent GameObject to spawn enemies in. To indicate a child of another object use a \"/\"")]
+        [SerializeField] private string enemyParentObject;
+
+        private int currentWave; // 0 indexed.
+        private int currentDeployment; // 1 indexed.
 
         private Transform parent;
 
         private void Start()
         {
             // Cache the parent GameObject.
-            GameObject go = GameObject.Find(parentGameObject); 
+            GameObject go = GameObject.Find(enemyParentObject);
             parent = go != null ? go.transform : null;
 
             currentWave = 0;
@@ -57,14 +59,14 @@ namespace WaveOne.Spawners
                 {
                     if (currentEnemy < enemyWaves[currentWave].enemies.Count)
                     {
-                        toDeploy = Mathf.FloorToInt(enemyWaves[currentWave].enemies[currentEnemy].count / enemyWaves[currentWave].deployments);
+                        toDeploy = Mathf.FloorToInt(enemyWaves[currentWave].enemies[currentEnemy].amount / enemyWaves[currentWave].deployments);
 
                         // This means we have reached the last deployment.
                         // At the last deployment we want to add the remainder of the enemies count.
                         // eg. 17 % 3 = 2. This gives us a normal deployment of 5 and the remaining 2 for the last deployment.
                         if (enemyWaves[currentWave].deployments != 1 && currentDeployment == enemyWaves[currentWave].deployments)
                         {
-                            toDeploy += enemyWaves[currentWave].enemies[currentEnemy].count % enemyWaves[currentWave].deployments;
+                            toDeploy += enemyWaves[currentWave].enemies[currentEnemy].amount % enemyWaves[currentWave].deployments;
                         }
                     }
                     else
@@ -81,15 +83,15 @@ namespace WaveOne.Spawners
                 if (toDeploy > 0)
                 {
                     if (parent)
-                        Instantiate(enemyWaves[currentWave].enemies[currentEnemy].enemy, transform.position, Quaternion.LookRotation(endPoint.position), parent);
+                        Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, transform.position, Quaternion.identity, parent);
                     else
-                        Instantiate(enemyWaves[currentWave].enemies[currentEnemy].enemy, transform.position, Quaternion.LookRotation(endPoint.position));
+                        Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, transform.position, Quaternion.identity);
 
                     deployedCount++;
 
-                    if (SetEndPoint)
+                    if (setAgentDestination)
                     {
-                        eventAgentSpawnedSetEndPoint.Raise(endPoint);
+                        eventAgentSpawnedSetEndPoint.Raise(endPoints);
                     }
                 }
 
@@ -122,18 +124,64 @@ namespace WaveOne.Spawners
         }
 
         [System.Serializable]
-        public struct SingleWave
+        public class SingleWave
         {
+            [HideInInspector] public string name;
             public List<EnemyCount> enemies;
             public int deployments;
-            public int duration;
         }
 
         [System.Serializable]
-        public struct EnemyCount
+        public class EnemyCount
         {
-            public GameObject enemy;
-            public int count;
+            [HideInInspector] public string name;
+            public GameObject gameObject;
+            public int amount;
+        }
+
+        private void OnValidate()
+        {
+            if (minTimeForNextDeployment > maxTimeForNextDeployment)
+                minTimeForNextDeployment = maxTimeForNextDeployment;
+
+            if (maxTimeForNextDeployment < minTimeForNextDeployment)
+                maxTimeForNextDeployment = minTimeForNextDeployment;
+
+            for (int i = 0; i < enemyWaves.Count; i++)
+            {
+                for (int j = 0; j < enemyWaves[i].enemies.Count; j++)
+                {
+                    enemyWaves[i].enemies[j] = new EnemyCount
+                    {
+                        name = "Enemy " + (j + 1),
+                        gameObject = enemyWaves[i].enemies[j].gameObject,
+                        amount = enemyWaves[i].enemies[j].amount
+                    };
+
+                    if (enemyWaves[i].enemies[j].amount < 1)
+                        enemyWaves[i].enemies[j] = new EnemyCount
+                        {
+                            name = enemyWaves[i].enemies[j].name,
+                            gameObject = enemyWaves[i].enemies[j].gameObject,
+                            amount = 1
+                        };
+                }
+
+                enemyWaves[i] = new SingleWave
+                {
+                    name = "Wave " + (i + 1),
+                    enemies = enemyWaves[i].enemies,
+                    deployments = enemyWaves[i].deployments
+                };
+
+                if (enemyWaves[i].deployments < 1)
+                    enemyWaves[i] = new SingleWave
+                    {
+                        name = enemyWaves[i].name,
+                        enemies = enemyWaves[i].enemies,
+                        deployments = 1
+                    };
+            }
         }
     }
 }

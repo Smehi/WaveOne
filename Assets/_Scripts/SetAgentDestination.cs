@@ -8,21 +8,48 @@ public class SetAgentDestination : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent agent;
 
-    public void CalculateValidPath(Transform endPoint)
+    private List<Transform> localEndPoints = new List<Transform>();
+    private bool endPointsCopied = false;
+    private bool calculated = false;
+
+    public void CalculateValidPath(List<Transform> endPoints)
     {
+        if (calculated)
+            return;
+
+        if (!endPointsCopied)
+        {
+            localEndPoints = endPoints;
+            endPointsCopied = true;
+        }
+
+        int index = Random.Range(0, localEndPoints.Count);
+
         // Make a new path and calculate that path.
         NavMeshPath path = new NavMeshPath();
-        agent.CalculatePath(endPoint.position, path);
+        agent.CalculatePath(localEndPoints[index].position, path);
 
         // If the path is partial or invalid destroy this agent.
         // Otherwise set the destination.
         if (path.status == NavMeshPathStatus.PathPartial || path.status == NavMeshPathStatus.PathInvalid)
         {
-            Destroy(gameObject);
+            // Try again but remove the current end point from the list because the path is not valid for that one.
+            if (localEndPoints.Count > 1)
+            {
+                localEndPoints.RemoveAt(index);
+                CalculateValidPath(localEndPoints);
+            }
+            else
+            {
+                // We have tried every end point and couldn't get a path so we destroy this object.
+                Destroy(gameObject);
+            }
         }
         else
         {
-            agent.SetDestination(endPoint.position);
+            transform.rotation = Quaternion.LookRotation(localEndPoints[index].position);
+            agent.SetDestination(localEndPoints[index].position);
+            calculated = true;
         }
     }
 }
