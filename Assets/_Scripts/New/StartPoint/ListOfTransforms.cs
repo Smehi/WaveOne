@@ -4,9 +4,9 @@ using WaveOne.StartPoints.StartPointPickers;
 
 namespace WaveOne.StartPoints
 {
-    public class ListOfTransforms : MonoBehaviour
+#pragma warning disable 0649
+    public class ListOfTransforms : MonoBehaviour, IStartPoint
     {
-        [SerializeField] private SpawnPointPickerEnum.SpawnPointPickerType SpawnPointPickerType;
         [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
         [SerializeField] private bool drawGizmos;
 
@@ -22,13 +22,21 @@ namespace WaveOne.StartPoints
         [ContextMenu("Get a point")]
         public Vector3 GetPoint()
         {
-            Transform listItem = startPointPicker.GetListItem();
-            return v = listItem.position;
+            return v = startPointPicker.GetListItem().position;
         }
 
         #region Gizmos
         private void OnDrawGizmos()
         {
+            if (!drawGizmos)
+                return;
+
+            Gizmos.color = Color.white;
+            for (int i = 0; i < spawnPoints.Count; i++)
+            {
+                Gizmos.DrawWireSphere(spawnPoints[i].position, 0.2f);
+            }
+
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(v, .1f);
         }

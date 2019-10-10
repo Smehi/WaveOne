@@ -6,9 +6,8 @@ using WaveOne.StartPoints.StartPointPickers;
 namespace WaveOne.StartPoints
 {
 #pragma warning disable 0649
-    public class ListOfSpheres : MonoBehaviour
+    public class ListOfSpheres : MonoBehaviour, IStartPoint
     {
-        [SerializeField] private SpawnPointPickerEnum.SpawnPointPickerType SpawnPointPickerType;
         [SerializeField] private List<Sphere> spawnPoints = new List<Sphere>();
         [SerializeField] private bool drawGizmos;
 
@@ -24,9 +23,7 @@ namespace WaveOne.StartPoints
         [ContextMenu("Get a point")]
         public Vector3 GetPoint()
         {
-            Sphere listItem = startPointPicker.GetListItem();
-
-            return GetRandomPointInSphere(listItem);
+            return GetRandomPointInSphere(startPointPicker.GetListItem());
         }
 
         private Vector3 GetRandomPointInSphere(Sphere sphere)

@@ -1,0 +1,11 @@
+﻿namespace WaveOne.StartPoints.StartPointPickers
+{
+    public static class StartPointPickerEnum
+    {
+        public enum StartPointPickerType
+        {
+            InOrder,
+            ReverseOrder
+        }
+    }
+}

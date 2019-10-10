@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &45462847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 45462846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee1bf6bb829db0642a717239cec6101e, type: 3}
+  m_Script: {fileID: 11500000, guid: 622a5b940d4b0e3438ba4c92a0e13a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &45462848
@@ -162,7 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 564ca259cd9f4e24a83a272dc030b7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPointPickerType: 0
   spawnPoints:
   - {fileID: 1367136647}
   - {fileID: 1192869092}
@@ -232,7 +231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &453016300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0b3c73ef9abc9449b32a3f6a184d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPointPickerType: 0
   spawnPoints:
   - position: {x: 5, y: 1.5, z: 7}
     radius: 1.5
@@ -280,7 +278,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 453016299}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df23ca6e7f8213e4da0c1b64ae7df487, type: 3}
+  m_Script: {fileID: 11500000, guid: 84296f8e718f6984590e5544af128607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &538933097
