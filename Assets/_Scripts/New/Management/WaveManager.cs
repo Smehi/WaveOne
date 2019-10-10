@@ -16,5 +16,13 @@ namespace WaveOne
                 waveConfigurators.Add(arr[i]);
             }
         }
+
+        public void StartAllConfigWaves()
+        {
+            for (int i = 0; i < waveConfigurators.Count; i++)
+            {
+                waveConfigurators[i].SpawnerScript.StartWave();
+            }
+        }
     }
 }

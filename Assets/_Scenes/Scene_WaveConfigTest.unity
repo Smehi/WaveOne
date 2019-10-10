@@ -304,8 +304,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1869002441}
   - component: {fileID: 1869002440}
-  - component: {fileID: 1869002439}
-  - component: {fileID: 1869002438}
   m_Layer: 0
   m_Name: WaveConfig
   m_TagString: Untagged
@@ -313,32 +311,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1869002438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869002437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee1bf6bb829db0642a717239cec6101e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1869002439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869002437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 564ca259cd9f4e24a83a272dc030b7a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoints: []
-  drawGizmos: 0
 --- !u!114 &1869002440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,8 +323,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d5ba278073d3264092426e168c2b353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPointType: 0
+  startPointType: 1
   startPointPickerType: 0
+  spawnerType: 0
 --- !u!4 &1869002441
 Transform:
   m_ObjectHideFlags: 0
