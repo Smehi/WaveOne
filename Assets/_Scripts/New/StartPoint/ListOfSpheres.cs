@@ -58,6 +58,12 @@ namespace WaveOne.StartPoints
                 Gizmos.DrawWireSphere(spawnPoints[i].position, spawnPoints[i].radius);
             }
 
+            Gizmos.color = Color.black;
+            for (int i = 0; i < spawnPoints.Count; i++)
+            {
+                Gizmos.DrawSphere(spawnPoints[i].position, spawnPoints[i].minDistanceFromCenter);
+            }
+
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(v, .1f);
         }

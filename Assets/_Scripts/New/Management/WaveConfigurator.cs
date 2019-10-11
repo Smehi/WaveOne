@@ -57,6 +57,17 @@ namespace WaveOne
                                 break;
                         }
                         break;
+                    case StartPointEnum.StartPointType.Box:
+                        switch (startPointPickerType)
+                        {
+                            case StartPointPickerEnum.StartPointPickerType.InOrder:
+                                currentStartPointPicker = gameObject.AddComponent(typeof(InOrderBox));
+                                break;
+                            case StartPointPickerEnum.StartPointPickerType.ReverseOrder:
+                                currentStartPointPicker = gameObject.AddComponent(typeof(ReverseOrderBox));
+                                break;
+                        }
+                        break;
                     case StartPointEnum.StartPointType.Sphere:
                         switch (startPointPickerType)
                         {

@@ -304,6 +304,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1869002441}
   - component: {fileID: 1869002440}
+  - component: {fileID: 1869002438}
+  - component: {fileID: 1869002442}
+  - component: {fileID: 1869002439}
   m_Layer: 0
   m_Name: WaveConfig
   m_TagString: Untagged
@@ -311,6 +314,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1869002438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869002437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3fe86d6e8cd79b4e9dd4f40a5b1f1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyWaves: []
+  minTimeForNextDeployment: 0
+  maxTimeForNextDeployment: 0
+  spawnRate: 0.1
+  enemyParentObject: 
+  eventWaveInProgress: {fileID: 0}
+--- !u!114 &1869002439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869002437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c94378df79257f46ba67dd8647b2f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1869002440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +359,12 @@ MonoBehaviour:
   startPointType: 1
   startPointPickerType: 0
   spawnerType: 0
+  prevStartPointType: 1
+  prevStartPointPickerType: 0
+  prevSpawnerType: 0
+  currentStartPoint: {fileID: 1869002442}
+  currentStartPointPicker: {fileID: 1869002439}
+  currentSpawner: {fileID: 1869002438}
 --- !u!4 &1869002441
 Transform:
   m_ObjectHideFlags: 0
@@ -340,3 +379,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1869002442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869002437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3743d2c0845e334d8f3065c2dca4d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoints:
+  - position: {x: 2, y: 0, z: 0}
+    size: {x: 1, y: 1, z: 1}
+    minDistanceFromCenter: {x: 0.2, y: 0.2, z: 0.2}
+  drawGizmos: 1

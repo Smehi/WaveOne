@@ -5,6 +5,7 @@
         public enum StartPointType
         {
             Transform,
+            Box,
             Sphere
         }
     }
