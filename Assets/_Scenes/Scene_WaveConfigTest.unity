@@ -304,9 +304,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1869002441}
   - component: {fileID: 1869002440}
-  - component: {fileID: 1869002438}
   - component: {fileID: 1869002442}
   - component: {fileID: 1869002439}
+  - component: {fileID: 1869002438}
   m_Layer: 0
   m_Name: WaveConfig
   m_TagString: Untagged

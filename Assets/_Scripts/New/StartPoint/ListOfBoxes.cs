@@ -28,16 +28,15 @@ namespace WaveOne.StartPoints
 
         private Vector3 GetRandomPointInBox(Box box)
         {
-            float x = Random.Range(box.minDistanceFromCenter.x * 0.5f, box.size.x * 0.5f);// * GetOneOrNegativeOne();
-            float y = Random.Range(0, 1f);// * GetOneOrNegativeOne();
-            float z = Random.Range(0, 1f);// * GetOneOrNegativeOne();
-            Vector3 dirVector = new Vector3(x, y, z);
+            // Size is the whole length of a side, but we only want half of each axis
+            // so we get a octant of the box. We can then randomly invert each so 
+            // we can reach each octant.
+            float x = Random.Range(box.minDistanceFromCenter.x / 2f, box.size.x / 2f) * GetOneOrNegativeOne();
+            float y = Random.Range(box.minDistanceFromCenter.y / 2f, box.size.y / 2f) * GetOneOrNegativeOne();
+            float z = Random.Range(box.minDistanceFromCenter.z / 2f, box.size.z / 2f) * GetOneOrNegativeOne();
 
-            //Vector3 randomPoint = dirVector.normalized * Random.Range(sphere.minDistanceFromCenter, sphere.radius);
-            //Vector3 relativePoint = v = sphere.position + randomPoint;
-
-            return Vector3.zero;
-            //return relativePoint;
+            // Add the Vector3 we got to the box base position because the box isn't always at (0, 0, 0).
+            return v = (box.position + new Vector3(x, y, z));
         }
 
         private int GetOneOrNegativeOne()
