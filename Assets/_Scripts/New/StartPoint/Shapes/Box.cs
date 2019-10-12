@@ -3,7 +3,7 @@
 namespace WaveOne.StartPoints.Shapes
 {
     [System.Serializable]
-    public class Box
+    public struct Box
     {
         public Vector3 position;
         public Vector3 size;

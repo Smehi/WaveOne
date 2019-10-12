@@ -17,6 +17,7 @@ public class WaveConfiguratorEditor : Editor
         {
             waveConfig.AddStartPointComponents();
             waveConfig.AddSpawnerComponents();
+            waveConfig.AddEndPointComponents();
         }
 
         GUI.backgroundColor = Color.red;

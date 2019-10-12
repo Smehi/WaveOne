@@ -3,7 +3,7 @@
 namespace WaveOne.StartPoints.Shapes
 {
     [System.Serializable]
-    public class Sphere
+    public struct Sphere
     {
         public Vector3 position;
         public float radius;

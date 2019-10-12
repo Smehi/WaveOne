@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WaveOne.EndPoints;
 using WaveOne.Events;
 
 namespace WaveOne.Spawners
@@ -23,8 +24,10 @@ namespace WaveOne.Spawners
         private int currentWave; // 0 indexed.
         private int currentDeployment; // 1 indexed.
         private Transform parent;
+        private bool setEndPoints;
 
         private WaveConfigurator waveConfig;
+        private EndPoint endPoints;
 
         private void Start()
         {
@@ -32,11 +35,22 @@ namespace WaveOne.Spawners
             GameObject go = GameObject.Find(enemyParentObject);
             parent = go != null ? go.transform : null;
 
-            // Set the spawnRate
+            // Cache the spawnRate
             spawnRate = 1 / spawnRate;
 
             currentWave = 0;
             currentDeployment = 1;
+
+            endPoints = GetComponent<EndPoint>();
+
+            if (endPoints)
+            {
+                setEndPoints = true;
+
+                for (int i = 0; i < enemyWaves.Count; i++)
+                    for (int j = 0; j < enemyWaves[i].enemies.Count; j++)
+                        endPoints.SetValidEndPointsPerEnemy(enemyWaves[i].enemies[j].gameObject);
+            }
 
             waveConfig = GetComponent<WaveConfigurator>();
         }
@@ -89,17 +103,19 @@ namespace WaveOne.Spawners
 
                 if (toDeploy > 0)
                 {
+                    GameObject go;
+
                     if (parent)
-                        Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, waveConfig.StartPointScript.GetPoint(), Quaternion.identity, parent);
+                        go = Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, waveConfig.StartPointScript.GetPoint(), Quaternion.identity, parent);
                     else
-                        Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, waveConfig.StartPointScript.GetPoint(), Quaternion.identity);
+                        go = Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, waveConfig.StartPointScript.GetPoint(), Quaternion.identity);
 
                     deployedCount++;
 
-                    //if (setAgentDestination)
-                    //{
-                    //    eventAgentSpawnedSetEndPoint.Raise(endPoints);
-                    //}
+                    if (setEndPoints)
+                    {
+                        SetEndPoint(go);
+                    }
                 }
 
                 // This means we deployed enough troops for the current enemy so we have to reset some flags for the next enemy.
@@ -132,9 +148,19 @@ namespace WaveOne.Spawners
             }
         }
 
-        #region Custom object classes
+        public void SetEndPoint(GameObject gameObject)
+        {
+            gameObject.AddComponent(typeof(SetAgentDestination));
+            SetAgentDestination sad = gameObject.GetComponent<SetAgentDestination>();
+            List<Transform> result = endPoints.GetEndPoints(gameObject);
+
+            if (result != null)
+                sad.CalculateValidPath(result);
+        }
+
+        #region Custom object structs
         [System.Serializable]
-        public class SingleWave
+        public struct SingleWave
         {
             [HideInInspector] public string name;
             public List<EnemyCount> enemies;
@@ -142,7 +168,7 @@ namespace WaveOne.Spawners
         }
 
         [System.Serializable]
-        public class EnemyCount
+        public struct EnemyCount
         {
             [HideInInspector] public string name;
             public GameObject gameObject;

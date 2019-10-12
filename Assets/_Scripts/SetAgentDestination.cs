@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,13 +9,9 @@ public class SetAgentDestination : MonoBehaviour
 
     private List<Transform> localEndPoints = new List<Transform>();
     private bool endPointsCopied = false;
-    private bool calculated = false;
 
     public void CalculateValidPath(List<Transform> endPoints)
     {
-        if (calculated)
-            return;
-
         if (!endPointsCopied)
         {
             localEndPoints = endPoints;
@@ -49,7 +44,6 @@ public class SetAgentDestination : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(localEndPoints[index].position);
             agent.SetDestination(localEndPoints[index].position);
-            calculated = true;
         }
     }
 }

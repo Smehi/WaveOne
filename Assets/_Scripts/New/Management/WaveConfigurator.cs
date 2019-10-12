@@ -2,26 +2,32 @@
 using WaveOne.StartPoints.StartPointPickers;
 using WaveOne.StartPoints;
 using WaveOne.Spawners;
+using WaveOne.EndPoints;
 
 namespace WaveOne
 {
 #pragma warning disable 0649
     public class WaveConfigurator : MonoBehaviour
     {
-        [Header("Start Point")]
+        [Header("Start point")]
         [SerializeField] private StartPointEnum.StartPointType startPointType;
         [SerializeField] private StartPointPickerEnum.StartPointPickerType startPointPickerType;
 
         [Header("Spawner")]
         [SerializeField] private SpawnerEnum.SpawnerType spawnerType;
 
+        [Header("End point")]
+        [SerializeField] private EndPointsEnum.EndPointsType endPointsType;
+
         [SerializeField, HideInInspector] private StartPointEnum.StartPointType prevStartPointType;
         [SerializeField, HideInInspector] private StartPointPickerEnum.StartPointPickerType prevStartPointPickerType;
         [SerializeField, HideInInspector] private SpawnerEnum.SpawnerType prevSpawnerType;
+        [SerializeField, HideInInspector] private EndPointsEnum.EndPointsType prevEndPointsType;
 
         [SerializeField, HideInInspector] private Component currentStartPoint;
         [SerializeField, HideInInspector] private Component currentStartPointPicker;
         [SerializeField, HideInInspector] private Component currentSpawner;
+        [SerializeField, HideInInspector] private Component currentEndPoint;
 
         public IStartPoint StartPointScript { get; private set; }
         public ISpawner SpawnerScript { get; private set; }
@@ -109,11 +115,35 @@ namespace WaveOne
             }
         }
 
+        public void AddEndPointComponents()
+        {
+            if (prevEndPointsType != endPointsType ||
+                currentEndPoint == null)
+            {
+                if (currentEndPoint != null)
+                    DestroyImmediate(currentEndPoint);
+
+                switch (endPointsType)
+                {
+                    case EndPointsEnum.EndPointsType.Disabled:
+                        break;
+                    case EndPointsEnum.EndPointsType.Enabled:
+                        gameObject.AddComponent(typeof(EndPoint));
+                        break;
+                }
+
+                currentEndPoint = GetComponent<EndPoint>() as Component;
+
+                prevEndPointsType = endPointsType;
+            }
+        }
+
         public void RemoveAllComponents()
         {
             DestroyImmediate(currentStartPointPicker);
             DestroyImmediate(currentStartPoint);
             DestroyImmediate(currentSpawner);
+            DestroyImmediate(currentEndPoint);
         }
     }
 }
