@@ -9,7 +9,7 @@ namespace WaveOne.StartPoints
     public class ListOfSpheres : MonoBehaviour, IStartPoint
     {
         [SerializeField] private List<Sphere> spawnPoints = new List<Sphere>();
-        [SerializeField] private bool drawGizmos;
+        [SerializeField] private bool drawGizmos = true;
 
         private IStartPointPicker<Sphere> startPointPicker;
         private Vector3 v;
@@ -39,13 +39,19 @@ namespace WaveOne.StartPoints
             return relativePoint;
         }
 
+        #region Helper functions
+        /// <summary>
+        /// Get a 1 or -1.
+        /// </summary>
+        /// <returns>1 or -1.</returns>
         private int GetOneOrNegativeOne()
         {
             if (Random.Range(0f, 1f) < .5f)
                 return -1;
 
             return 1;
-        }
+        } 
+        #endregion
 
         #region Validation & Gizmos
         private void OnDrawGizmos()

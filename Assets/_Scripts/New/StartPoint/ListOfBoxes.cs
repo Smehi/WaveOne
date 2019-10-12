@@ -9,7 +9,10 @@ namespace WaveOne.StartPoints
     public class ListOfBoxes : MonoBehaviour, IStartPoint
     {
         [SerializeField] private List<Box> spawnPoints = new List<Box>();
-        [SerializeField] private bool drawGizmos;
+        [Tooltip("Maxing all axis will mean that the minimum distance will be applied to all axis." +
+                 "This mean that the point will always choose a corner.")]
+        [SerializeField] private bool setOneAxisToMinimum = true;
+        [SerializeField] private bool drawGizmos = true;
 
         private IStartPointPicker<Box> startPointPicker;
         private Vector3 v;
@@ -28,24 +31,84 @@ namespace WaveOne.StartPoints
 
         private Vector3 GetRandomPointInBox(Box box)
         {
-            // Size is the whole length of a side, but we only want half of each axis
-            // so we get a octant of the box. We can then randomly invert each so 
-            // we can reach each octant.
-            float x = Random.Range(box.minDistanceFromCenter.x / 2f, box.size.x / 2f) * GetOneOrNegativeOne();
-            float y = Random.Range(box.minDistanceFromCenter.y / 2f, box.size.y / 2f) * GetOneOrNegativeOne();
-            float z = Random.Range(box.minDistanceFromCenter.z / 2f, box.size.z / 2f) * GetOneOrNegativeOne();
+            // Get a reference the half so we don't need to devide often.
+            float boxHalfX = box.size.x / 2f;
+            float boxHalfY = box.size.y / 2f;
+            float boxHalfZ = box.size.z / 2f;
+
+            float boxMinDistHalfX = box.minDistanceFromCenter.x / 2f;
+            float boxMinDistHalfY = box.minDistanceFromCenter.y / 2f;
+            float boxMinDistHalfZ = box.minDistanceFromCenter.z / 2f;
+
+            // Size is the whole length of a side, so we only want half of each axis.
+            // We can then randomly invert each so we can reach each octant of the box.
+            float x = Random.Range(0, boxHalfX) * GetOneOrNegativeOne();
+            float y = Random.Range(0, boxHalfY) * GetOneOrNegativeOne();
+            float z = Random.Range(0, boxHalfZ) * GetOneOrNegativeOne();
+
+            if (setOneAxisToMinimum)
+            {
+                switch (Random.Range(0, 3))
+                {
+                    case 0:
+                        x = GetMinUpToMax(x, boxMinDistHalfX, boxHalfX);
+                        break;
+                    case 1:
+                        y = GetMinUpToMax(y, boxMinDistHalfY, boxHalfY);
+                        break;
+                    case 2:
+                        z = GetMinUpToMax(z, boxMinDistHalfZ, boxHalfZ);
+                        break;
+                }
+            }
+            else
+            {
+                x = GetMinUpToMax(x, boxMinDistHalfX, boxHalfX);
+                y = GetMinUpToMax(y, boxMinDistHalfY, boxHalfY);
+                z = GetMinUpToMax(z, boxMinDistHalfZ, boxHalfZ);
+            }
 
             // Add the Vector3 we got to the box base position because the box isn't always at (0, 0, 0).
             return v = (box.position + new Vector3(x, y, z));
         }
 
+        #region Helper functions
+        /// <summary>
+        /// Sets the input value to the minimum value and up to the max value.
+        /// </summary>
+        /// <param name="f1">Input value</param>
+        /// <param name="f2">Minimum value</param>
+        /// <param name="f3">Maximum value</param>
+        /// <returns>value that is at least f2 at most f3 or inbetween.</returns>
+        private float GetMinUpToMax(float f1, float f2, float f3)
+        {
+            // Check if our float variable against our min float.
+            // If it's bigger we don't need to do anything otherwise we need a new value.
+            if (Mathf.Abs(f1) < Mathf.Abs(f2))
+            {
+                // Return the minimum value depening on the state of the original value
+                // (negative/positive). Then add a random value between the max and min.
+                if (f1 < 0)
+                    return -f2 - Random.Range(0f, f3 - f2);
+                else
+                    return f2 + Random.Range(0f, f3 - f2);
+            }
+
+            return f1;
+        }
+
+        /// <summary>
+        /// Get a 1 or -1.
+        /// </summary>
+        /// <returns>1 or -1.</returns>
         private int GetOneOrNegativeOne()
         {
             if (Random.Range(0f, 1f) < .5f)
                 return -1;
 
             return 1;
-        }
+        } 
+        #endregion
 
         #region Validation & Gizmos
         private void OnDrawGizmos()
@@ -68,44 +131,51 @@ namespace WaveOne.StartPoints
             Gizmos.DrawSphere(v, .1f);
         }
 
-        private Vector3 SetMinMax(Vector3 inputVector, Vector3 checkAgainstVector, bool checkIfBigger)
+        /// <summary>
+        /// Set the vector value to another vector if conditions meet.
+        /// </summary>
+        /// <param name="v1">Input vector</param>
+        /// <param name="v2">Vector to check the input against</param>
+        /// <param name="checkIfBigger">The condition to check</param>
+        /// <returns>v1 with xyz capped off at v2 if conditions meet.</returns>
+        private Vector3 SetMinMaxVector(Vector3 v1, Vector3 v2, bool checkIfBigger)
         {
             if (checkIfBigger)
             {
-                if (inputVector.x > checkAgainstVector.x)
+                if (v1.x > v2.x)
                 {
-                    inputVector.x = checkAgainstVector.x;
+                    v1.x = v2.x;
                 }
 
-                if (inputVector.y > checkAgainstVector.y)
+                if (v1.y > v2.y)
                 {
-                    inputVector.y = checkAgainstVector.y;
+                    v1.y = v2.y;
                 }
 
-                if (inputVector.z > checkAgainstVector.z)
+                if (v1.z > v2.z)
                 {
-                    inputVector.z = checkAgainstVector.z;
-                } 
+                    v1.z = v2.z;
+                }
             }
             else
             {
-                if (inputVector.x < checkAgainstVector.x)
+                if (v1.x < v2.x)
                 {
-                    inputVector.x = checkAgainstVector.x;
+                    v1.x = v2.x;
                 }
 
-                if (inputVector.y < checkAgainstVector.y)
+                if (v1.y < v2.y)
                 {
-                    inputVector.y = checkAgainstVector.y;
+                    v1.y = v2.y;
                 }
 
-                if (inputVector.z < checkAgainstVector.z)
+                if (v1.z < v2.z)
                 {
-                    inputVector.z = checkAgainstVector.z;
+                    v1.z = v2.z;
                 }
             }
 
-            return inputVector;
+            return v1;
         }
 
         private void OnValidate()
@@ -120,7 +190,7 @@ namespace WaveOne.StartPoints
                     spawnPoints[i] = new Box
                     {
                         position = spawnPoints[i].position,
-                        size = SetMinMax(spawnPoints[i].size, Vector3.zero, false),
+                        size = SetMinMaxVector(spawnPoints[i].size, Vector3.zero, false),
                         minDistanceFromCenter = spawnPoints[i].minDistanceFromCenter
                     };
                 }
@@ -134,7 +204,7 @@ namespace WaveOne.StartPoints
                     {
                         position = spawnPoints[i].position,
                         size = spawnPoints[i].size,
-                        minDistanceFromCenter = SetMinMax(spawnPoints[i].minDistanceFromCenter, Vector3.zero, false)
+                        minDistanceFromCenter = SetMinMaxVector(spawnPoints[i].minDistanceFromCenter, Vector3.zero, false)
                     };
                 }
 
@@ -147,7 +217,7 @@ namespace WaveOne.StartPoints
                     {
                         position = spawnPoints[i].position,
                         size = spawnPoints[i].size,
-                        minDistanceFromCenter = SetMinMax(spawnPoints[i].minDistanceFromCenter, spawnPoints[i].size, true)
+                        minDistanceFromCenter = SetMinMaxVector(spawnPoints[i].minDistanceFromCenter, spawnPoints[i].size, true)
                     };
                 }
             }

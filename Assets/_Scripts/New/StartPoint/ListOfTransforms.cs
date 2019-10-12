@@ -8,7 +8,7 @@ namespace WaveOne.StartPoints
     public class ListOfTransforms : MonoBehaviour, IStartPoint
     {
         [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
-        [SerializeField] private bool drawGizmos;
+        [SerializeField] private bool drawGizmos = true;
 
         private IStartPointPicker<Transform> startPointPicker;
         private Vector3 v;
