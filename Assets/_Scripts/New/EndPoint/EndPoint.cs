@@ -28,12 +28,12 @@ namespace WaveOne.EndPoints
             enemyEndPointsPairs[enemy] = availableEndPoints;
         }
 
-        public List<Transform> GetEndPoints(GameObject enemy)
+        public List<Transform> GetEndPoints(GameObject enemyPrefab)
         {
-            if (noEndPointEnemies.Contains(enemy) || !enemyEndPointsPairs.ContainsKey(enemy))
+            if (noEndPointEnemies.Contains(enemyPrefab) || !enemyEndPointsPairs.ContainsKey(enemyPrefab))
                 return null;
 
-            return enemyEndPointsPairs[enemy];
+            return enemyEndPointsPairs[enemyPrefab];
         }
 
         #region Custom structs and validation

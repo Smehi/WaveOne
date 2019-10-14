@@ -71,6 +71,7 @@ namespace WaveOne.Spawners
             int toDeploy = 0;
             int deployedCount = 0;
             int currentEnemy = 0;
+            GameObject instance = null;
 
             // The coroutine only runs for a single deployment.
             while (!finishedDeploying)
@@ -103,18 +104,16 @@ namespace WaveOne.Spawners
 
                 if (toDeploy > 0)
                 {
-                    GameObject go;
-
                     if (parent)
-                        go = Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, waveConfig.StartPointScript.GetPoint(), Quaternion.identity, parent);
+                       instance = Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, waveConfig.StartPointScript.GetPoint(), Quaternion.identity, parent);
                     else
-                        go = Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, waveConfig.StartPointScript.GetPoint(), Quaternion.identity);
+                       instance = Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, waveConfig.StartPointScript.GetPoint(), Quaternion.identity);
 
                     deployedCount++;
 
                     if (setEndPoints)
                     {
-                        SetEndPoint(go);
+                        SetEndPoint(enemyWaves[currentWave].enemies[currentEnemy].gameObject, instance);
                     }
                 }
 
@@ -148,11 +147,11 @@ namespace WaveOne.Spawners
             }
         }
 
-        public void SetEndPoint(GameObject gameObject)
+        public void SetEndPoint(GameObject prefabGameObject, GameObject instanciatedGameObject)
         {
-            gameObject.AddComponent(typeof(SetAgentDestination));
-            SetAgentDestination sad = gameObject.GetComponent<SetAgentDestination>();
-            List<Transform> result = endPoints.GetEndPoints(gameObject);
+            instanciatedGameObject.AddComponent(typeof(SetAgentDestination));
+            SetAgentDestination sad = instanciatedGameObject.GetComponent<SetAgentDestination>();
+            List<Transform> result = endPoints.GetEndPoints(prefabGameObject);
 
             if (result != null)
                 sad.CalculateValidPath(result);

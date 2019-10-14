@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 4537500125929902350}
   - component: {fileID: -5904045593362750682}
   - component: {fileID: -5581868473880692984}
-  - component: {fileID: 2129953528414116609}
   m_Layer: 0
   m_Name: Agent_Cube
   m_TagString: Untagged
@@ -160,32 +159,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layersToCollideWith: 08000000
---- !u!114 &2129953528414116609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4762860196327269951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6aa5f6ce27c3374189d9bdfe5bb551e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: b71fc40abd39a51419f015aac640b295, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -5904045593362750682}
-        m_MethodName: CalculateValidPath
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: WaveOne.Events.UnityTransformEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null

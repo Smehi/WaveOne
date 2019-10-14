@@ -1110,6 +1110,7 @@ GameObject:
   - component: {fileID: 2117478019}
   - component: {fileID: 2117478018}
   - component: {fileID: 2117478017}
+  - component: {fileID: 2117478021}
   m_Layer: 0
   m_Name: Wave Configurator
   m_TagString: Untagged
@@ -1227,9 +1228,26 @@ MonoBehaviour:
   startPointType: 0
   startPointPickerType: 0
   spawnerType: 0
+  endPointsType: 1
   prevStartPointType: 0
   prevStartPointPickerType: 0
   prevSpawnerType: 0
+  prevEndPointsType: 1
   currentStartPoint: {fileID: 2117478019}
   currentStartPointPicker: {fileID: 2117478018}
   currentSpawner: {fileID: 2117478017}
+  currentEndPoint: {fileID: 2117478021}
+--- !u!114 &2117478021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117478015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebc4c8385cfb684897b9e6369b8f7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endPoints: []
+  noEndPointEnemies: []
