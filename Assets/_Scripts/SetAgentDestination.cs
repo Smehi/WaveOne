@@ -5,10 +5,14 @@ using UnityEngine.AI;
 #pragma warning disable 0649
 public class SetAgentDestination : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent agent;
-
+    private NavMeshAgent agent;
     private List<Transform> localEndPoints = new List<Transform>();
     private bool endPointsCopied = false;
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
 
     public void CalculateValidPath(List<Transform> endPoints)
     {

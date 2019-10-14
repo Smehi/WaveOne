@@ -14,14 +14,13 @@ GameObject:
   - component: {fileID: -2168558518179688673}
   - component: {fileID: 2910097610888178904}
   - component: {fileID: 4537500125929902350}
-  - component: {fileID: -5904045593362750682}
   - component: {fileID: -5581868473880692984}
   m_Layer: 0
   m_Name: Agent_Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &1766218198405829972
 Transform:
@@ -133,19 +132,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-5904045593362750682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4762860196327269951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91eaa5dedea0d7c4c86807c08fe20d56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 2910097610888178904}
 --- !u!114 &-5581868473880692984
 MonoBehaviour:
   m_ObjectHideFlags: 0

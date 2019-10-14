@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: -307137221260975506}
   - component: {fileID: -3757923791462067974}
   - component: {fileID: 7466583780475240490}
-  - component: {fileID: 7830304694396959306}
   - component: {fileID: -8312679523633097956}
   m_Layer: 0
   m_Name: Agent_Cylinder
@@ -130,23 +129,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
+  m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &7830304694396959306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6253559388872799984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91eaa5dedea0d7c4c86807c08fe20d56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: -3757923791462067974}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-8312679523633097956
 MonoBehaviour:
   m_ObjectHideFlags: 0
