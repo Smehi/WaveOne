@@ -77,7 +77,7 @@ namespace WaveOne.Spawners
             int deployedCount = 0;
             int currentEnemy = 0;
             int presetIndex;
-            int currentGroup = 1;
+            int currentGroup = 0;
             int amountGroups = 1;
             GameObject instance;
 
