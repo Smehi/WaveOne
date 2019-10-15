@@ -31,6 +31,10 @@ namespace WaveOne.Spawners
         private WaveConfigurator waveConfig;
         private EndPoint endPoints;
 
+        public int TotalEnemies { get; private set; }
+        public int DeployedEnemies { get; private set; }
+        public int AliveEnemies { get; private set; }
+
         private void Start()
         {
             // Cache the parent GameObject.
@@ -51,7 +55,10 @@ namespace WaveOne.Spawners
 
                 for (int i = 0; i < enemyWaves.Count; i++)
                     for (int j = 0; j < enemyWaves[i].enemies.Count; j++)
+                    {
+                        TotalEnemies += enemyWaves[i].enemies[j].amount;
                         endPoints.SetValidEndPointsPerEnemy(enemyWaves[i].enemies[j].gameObject);
+                    }
             }
 
             waveConfig = GetComponent<WaveConfigurator>();
@@ -78,7 +85,7 @@ namespace WaveOne.Spawners
             int currentEnemy = 0;
             int presetIndex;
             int currentGroup = 0;
-            int amountGroups = 1;
+            int amountGroups = 0;
             GameObject instance;
 
             // The coroutine only runs for a single deployment.
@@ -148,6 +155,8 @@ namespace WaveOne.Spawners
 
                         instance.transform.position += relativeGroupPositions[i];
 
+                        DeployedEnemies++;
+                        AliveEnemies++;
                         deployedCount++;
 
                         if (setEndPoints)

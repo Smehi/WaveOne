@@ -1340,9 +1340,9 @@ MonoBehaviour:
     - name: Enemy 1
       gameObject: {fileID: 4762860196327269951, guid: 9017dbb41ad9c864abdf906adabbda8b,
         type: 3}
-      amount: 5
-      groupSize: 2
-    deployments: 1
+      amount: 20
+      groupSize: 3
+    deployments: 2
   - name: Wave 2
     enemies:
     - name: Enemy 1
@@ -1363,7 +1363,7 @@ MonoBehaviour:
     deployments: 3
   minTimeForNextDeployment: 3
   maxTimeForNextDeployment: 5
-  spawnRate: 0.16
+  spawnRate: 0.75
   enemyParentObject: 
   eventWaveInProgress: {fileID: 11400000, guid: c812d20b498eb1d47b020535c2f5d55e,
     type: 2}
