@@ -14,7 +14,7 @@ public class SetAgentDestination : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
-    public void CalculateValidPath(List<Transform> endPoints)
+    public void CalculateValidPath(List<Transform> endPoints, int presetIndex = -1)
     {
         if (!endPointsCopied)
         {
@@ -22,7 +22,8 @@ public class SetAgentDestination : MonoBehaviour
             endPointsCopied = true;
         }
 
-        int index = Random.Range(0, localEndPoints.Count);
+        // If we have a preset index we want to use that otherwise get a random point
+        int index = presetIndex == -1 ? Random.Range(0, localEndPoints.Count) : presetIndex;
 
         // Make a new path and calculate that path.
         NavMeshPath path = new NavMeshPath();

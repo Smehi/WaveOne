@@ -20,8 +20,8 @@ namespace WaveOne.Util
 
             Collider col = obj.GetComponent<Collider>();
 
-            float spreadWidth = col.bounds.extents.x;
-            float spreadDepth = col.bounds.extents.z;
+            float spreadWidth = col.bounds.size.x * 1.15f;
+            float spreadDepth = col.bounds.size.z * 1.15f;
 
             // Simple calculation take width = 2 & spreadWidth = 1:
             // 2 - 1 = 1

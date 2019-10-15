@@ -1363,7 +1363,7 @@ MonoBehaviour:
     deployments: 3
   minTimeForNextDeployment: 3
   maxTimeForNextDeployment: 5
-  spawnRate: 1.25
+  spawnRate: 0.16
   enemyParentObject: 
   eventWaveInProgress: {fileID: 11400000, guid: c812d20b498eb1d47b020535c2f5d55e,
     type: 2}

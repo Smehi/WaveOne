@@ -76,6 +76,7 @@ namespace WaveOne.Spawners
             int toDeploy = 0;
             int deployedCount = 0;
             int currentEnemy = 0;
+            int presetIndex = 0;
             GameObject instance;
 
             // The coroutine only runs for a single deployment.
@@ -113,6 +114,7 @@ namespace WaveOne.Spawners
                     bool gotRelativeGroupPositions = false;
                     List<Vector3> relativeGroupPositions = new List<Vector3>();
                     Vector3 spawnPointPos = waveConfig.StartPointScript.GetPoint();
+                    presetIndex = Random.Range(0, endPoints.GetEndPoints(enemyWaves[currentWave].enemies[currentEnemy].gameObject).Count);
 
                     for (int i = 0; i < enemyWaves[currentWave].enemies[currentEnemy].groupSize; i++)
                     {
@@ -142,7 +144,11 @@ namespace WaveOne.Spawners
                         deployedCount++;
 
                         if (setEndPoints)
-                            SetEndPoint(enemyWaves[currentWave].enemies[currentEnemy].gameObject, instance);
+                        {
+                            SetEndPoint(enemyWaves[currentWave].enemies[currentEnemy].gameObject,
+                                        instance,
+                                        presetIndex);
+                        }
                     }
                 }
 
@@ -177,14 +183,14 @@ namespace WaveOne.Spawners
             }
         }
 
-        public void SetEndPoint(GameObject prefabGameObject, GameObject instanciatedGameObject)
+        public void SetEndPoint(GameObject prefabGameObject, GameObject instanciatedGameObject, int presetIndex)
         {
             instanciatedGameObject.AddComponent(typeof(SetAgentDestination));
             SetAgentDestination sad = instanciatedGameObject.GetComponent<SetAgentDestination>();
             List<Transform> result = endPoints.GetEndPoints(prefabGameObject);
 
             if (result != null)
-                sad.CalculateValidPath(result);
+                sad.CalculateValidPath(result, presetIndex);
         }
 
         #region Custom object structs
