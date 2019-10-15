@@ -76,7 +76,9 @@ namespace WaveOne.Spawners
             int toDeploy = 0;
             int deployedCount = 0;
             int currentEnemy = 0;
-            int presetIndex = 0;
+            int presetIndex;
+            int currentGroup = 1;
+            int amountGroups = 1;
             GameObject instance;
 
             // The coroutine only runs for a single deployment.
@@ -89,6 +91,7 @@ namespace WaveOne.Spawners
                     {
                         // Divide amount of enemies by the amount of deployments to get the amount to deploy.
                         toDeploy = Mathf.FloorToInt(enemyWaves[currentWave].enemies[currentEnemy].amount / enemyWaves[currentWave].deployments);
+                        amountGroups = Mathf.FloorToInt(toDeploy / enemyWaves[currentWave].enemies[currentEnemy].groupSize);
 
                         // This means we have reached the last deployment.
                         // At the last deployment we want to add the remainder of the enemies count.
@@ -115,8 +118,12 @@ namespace WaveOne.Spawners
                     List<Vector3> relativeGroupPositions = new List<Vector3>();
                     Vector3 spawnPointPos = waveConfig.StartPointScript.GetPoint();
                     presetIndex = Random.Range(0, endPoints.GetEndPoints(enemyWaves[currentWave].enemies[currentEnemy].gameObject).Count);
+                    int spawnAmount = enemyWaves[currentWave].enemies[currentEnemy].groupSize;
 
-                    for (int i = 0; i < enemyWaves[currentWave].enemies[currentEnemy].groupSize; i++)
+                    if (currentGroup == amountGroups)
+                        spawnAmount = toDeploy % enemyWaves[currentWave].enemies[currentEnemy].groupSize;
+
+                    for (int i = 0; i < spawnAmount; i++)
                     {
                         if (parent)
                             instance = Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject,
@@ -135,7 +142,7 @@ namespace WaveOne.Spawners
                         if (!gotRelativeGroupPositions)
                         {
                             relativeGroupPositions = SquareGroupFormation.MakeFormation(instance,
-                                                                                        enemyWaves[currentWave].enemies[currentEnemy].groupSize);
+                                                                                        spawnAmount);
                             gotRelativeGroupPositions = true;
                         }
 
@@ -150,6 +157,8 @@ namespace WaveOne.Spawners
                                         presetIndex);
                         }
                     }
+
+                    currentGroup++;
                 }
 
                 // This means we deployed enough troops for the current enemy so we have to reset some flags for the next enemy.
