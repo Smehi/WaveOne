@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using WaveOne.EndPoints;
 using WaveOne.Events;
+using WaveOne.Util;
 
 namespace WaveOne.Spawners
 {
 #pragma warning disable 0649
-    public class ProgressiveWithDeployments : MonoBehaviour, ISpawner
+    public class Progressive : MonoBehaviour, ISpawner
     {
         [Header("Waves")]
         [SerializeField] private List<SingleWave> enemyWaves = new List<SingleWave>();
@@ -25,6 +26,7 @@ namespace WaveOne.Spawners
         private int currentDeployment; // 1 indexed.
         private Transform parent;
         private bool setEndPoints;
+        private bool waveInProgress;
 
         private WaveConfigurator waveConfig;
         private EndPoint endPoints;
@@ -60,8 +62,11 @@ namespace WaveOne.Spawners
         {
             StartCoroutine(DeployTroops(currentWave));
 
-            if (eventWaveInProgress != null)
+            if (eventWaveInProgress != null && !waveInProgress)
+            {
                 eventWaveInProgress.Raise(true);
+                waveInProgress = true;
+            }
         }
 
         private IEnumerator DeployTroops(int currentWave)
@@ -71,7 +76,7 @@ namespace WaveOne.Spawners
             int toDeploy = 0;
             int deployedCount = 0;
             int currentEnemy = 0;
-            GameObject instance = null;
+            GameObject instance;
 
             // The coroutine only runs for a single deployment.
             while (!finishedDeploying)
@@ -81,6 +86,7 @@ namespace WaveOne.Spawners
                 {
                     if (currentEnemy < enemyWaves[currentWave].enemies.Count)
                     {
+                        // Divide amount of enemies by the amount of deployments to get the amount to deploy.
                         toDeploy = Mathf.FloorToInt(enemyWaves[currentWave].enemies[currentEnemy].amount / enemyWaves[currentWave].deployments);
 
                         // This means we have reached the last deployment.
@@ -104,16 +110,39 @@ namespace WaveOne.Spawners
 
                 if (toDeploy > 0)
                 {
-                    if (parent)
-                       instance = Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, waveConfig.StartPointScript.GetPoint(), Quaternion.identity, parent);
-                    else
-                       instance = Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject, waveConfig.StartPointScript.GetPoint(), Quaternion.identity);
+                    bool gotRelativeGroupPositions = false;
+                    List<Vector3> relativeGroupPositions = new List<Vector3>();
+                    Vector3 spawnPointPos = waveConfig.StartPointScript.GetPoint();
 
-                    deployedCount++;
-
-                    if (setEndPoints)
+                    for (int i = 0; i < enemyWaves[currentWave].enemies[currentEnemy].groupSize; i++)
                     {
-                        SetEndPoint(enemyWaves[currentWave].enemies[currentEnemy].gameObject, instance);
+                        if (parent)
+                            instance = Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject,
+                                                   spawnPointPos,
+                                                   Quaternion.identity,
+                                                   parent);
+                        else
+                            instance = Instantiate(enemyWaves[currentWave].enemies[currentEnemy].gameObject,
+                                                   spawnPointPos,
+                                                   Quaternion.identity);
+
+                        // We can only get the bounds of the collider of an active object.
+                        // This means that we can't use the Prefab to get the info we need.
+                        // So we first spawn the object and then from that instance we get the info we need,
+                        // then we apply the relative position at the end.
+                        if (!gotRelativeGroupPositions)
+                        {
+                            relativeGroupPositions = SquareGroupFormation.MakeFormation(instance,
+                                                                                        enemyWaves[currentWave].enemies[currentEnemy].groupSize);
+                            gotRelativeGroupPositions = true;
+                        }
+
+                        instance.transform.position += relativeGroupPositions[i];
+
+                        deployedCount++;
+
+                        if (setEndPoints)
+                            SetEndPoint(enemyWaves[currentWave].enemies[currentEnemy].gameObject, instance);
                     }
                 }
 
@@ -134,6 +163,7 @@ namespace WaveOne.Spawners
             {
                 this.currentWave++;
                 currentDeployment = 1;
+                waveInProgress = false;
 
                 if (currentWave != enemyWaves.Count - 1 && eventWaveInProgress != null)
                     eventWaveInProgress.Raise(false);
@@ -172,6 +202,7 @@ namespace WaveOne.Spawners
             [HideInInspector] public string name;
             public GameObject gameObject;
             public int amount;
+            public int groupSize;
         }
         #endregion
 
@@ -198,7 +229,8 @@ namespace WaveOne.Spawners
                     {
                         name = "Enemy " + (j + 1),
                         gameObject = enemyWaves[i].enemies[j].gameObject,
-                        amount = enemyWaves[i].enemies[j].amount
+                        amount = enemyWaves[i].enemies[j].amount,
+                        groupSize = enemyWaves[i].enemies[j].groupSize
                     };
 
                     if (enemyWaves[i].enemies[j].amount < 1)
@@ -206,7 +238,25 @@ namespace WaveOne.Spawners
                         {
                             name = enemyWaves[i].enemies[j].name,
                             gameObject = enemyWaves[i].enemies[j].gameObject,
-                            amount = 1
+                            amount = 1,
+                            groupSize = enemyWaves[i].enemies[j].groupSize
+                        };
+
+                    if (enemyWaves[i].enemies[j].groupSize < 1)
+                        enemyWaves[i].enemies[j] = new EnemyCount
+                        {
+                            name = enemyWaves[i].enemies[j].name,
+                            gameObject = enemyWaves[i].enemies[j].gameObject,
+                            amount = enemyWaves[i].enemies[j].amount,
+                            groupSize = 1
+                        };
+                    else if (enemyWaves[i].enemies[j].groupSize > enemyWaves[i].enemies[j].amount)
+                        enemyWaves[i].enemies[j] = new EnemyCount
+                        {
+                            name = enemyWaves[i].enemies[j].name,
+                            gameObject = enemyWaves[i].enemies[j].gameObject,
+                            amount = enemyWaves[i].enemies[j].amount,
+                            groupSize = enemyWaves[i].enemies[j].amount
                         };
                 }
 

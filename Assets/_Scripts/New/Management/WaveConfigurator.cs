@@ -104,8 +104,8 @@ namespace WaveOne
 
                 switch (spawnerType)
                 {
-                    case SpawnerEnum.SpawnerType.ProgressiveWithDeployment:
-                        gameObject.AddComponent(typeof(ProgressiveWithDeployments));
+                    case SpawnerEnum.SpawnerType.Progressive:
+                        gameObject.AddComponent(typeof(Progressive));
                         break;
                 }
 

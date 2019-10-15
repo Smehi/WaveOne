@@ -4,7 +4,7 @@
     {
         public enum SpawnerType
         {
-            ProgressiveWithDeployment
+            Progressive
         }
     }
 }

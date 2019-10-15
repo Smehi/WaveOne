@@ -1340,15 +1340,8 @@ MonoBehaviour:
     - name: Enemy 1
       gameObject: {fileID: 4762860196327269951, guid: 9017dbb41ad9c864abdf906adabbda8b,
         type: 3}
-      amount: 2
-    - name: Enemy 2
-      gameObject: {fileID: 6253559388872799984, guid: c0e8b75e50da8df4299405d0b904175e,
-        type: 3}
-      amount: 3
-    - name: Enemy 3
-      gameObject: {fileID: 6004075313457377879, guid: b7428e1ac6f58ea449bc197fcec29c7d,
-        type: 3}
       amount: 4
+      groupSize: 2
     deployments: 1
   - name: Wave 2
     enemies:
@@ -1356,14 +1349,17 @@ MonoBehaviour:
       gameObject: {fileID: 4762860196327269951, guid: 9017dbb41ad9c864abdf906adabbda8b,
         type: 3}
       amount: 3
+      groupSize: 1
     - name: Enemy 2
       gameObject: {fileID: 6253559388872799984, guid: c0e8b75e50da8df4299405d0b904175e,
         type: 3}
       amount: 6
+      groupSize: 1
     - name: Enemy 3
       gameObject: {fileID: 6004075313457377879, guid: b7428e1ac6f58ea449bc197fcec29c7d,
         type: 3}
       amount: 9
+      groupSize: 1
     deployments: 3
   minTimeForNextDeployment: 3
   maxTimeForNextDeployment: 5
