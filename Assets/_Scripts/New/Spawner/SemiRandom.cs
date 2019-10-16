@@ -8,7 +8,7 @@ using UnityEngine;
 namespace SemihOrhan.WaveOne.Spawners
 {
 #pragma warning disable 0649
-    public class Progressive : MonoBehaviour, ISpawner
+    public class SemiRandom : MonoBehaviour, ISpawner
     {
         [Header("Waves")]
         [SerializeField] private List<SingleWave> enemyWaves = new List<SingleWave>();
@@ -89,13 +89,27 @@ namespace SemihOrhan.WaveOne.Spawners
             int amountGroups = 0;
             GameObject instance;
 
+            List<bool> wasChosen = new List<bool>();
+            for (int i = 0; i < enemyWaves[currentWave].enemies.Count; i++)
+            {
+                wasChosen.Add(false);
+            }
+
             // The coroutine only runs for a single deployment.
             while (!finishedDeploying)
             {
                 // Calculate the amount of troops to deploy for the current deployment and current enemy.
                 if (!calculatedTroops)
                 {
-                    if (currentEnemy < enemyWaves[currentWave].enemies.Count)
+                    do
+                    {
+                        if (!wasChosen.Contains(false))
+                            continue;
+
+                        currentEnemy = Random.Range(0, enemyWaves[currentWave].enemies.Count);
+                    } while (wasChosen.Contains(false) && wasChosen[currentEnemy]);
+
+                    if (wasChosen.Contains(false))
                     {
                         // Divide amount of enemies by the amount of deployments to get the amount to deploy.
                         toDeploy = Mathf.FloorToInt(enemyWaves[currentWave].enemies[currentEnemy].amount / enemyWaves[currentWave].deployments);
@@ -108,6 +122,8 @@ namespace SemihOrhan.WaveOne.Spawners
                         {
                             toDeploy += enemyWaves[currentWave].enemies[currentEnemy].amount % enemyWaves[currentWave].deployments;
                         }
+
+                        wasChosen[currentEnemy] = true;
                     }
                     else
                     {
@@ -183,7 +199,6 @@ namespace SemihOrhan.WaveOne.Spawners
                     toDeploy = 0;
                     deployedCount = 0;
                     currentGroup = 0;
-                    currentEnemy++;
                 }
 
                 yield return new WaitForSeconds(spawnRate);

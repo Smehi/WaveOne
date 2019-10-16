@@ -1677,7 +1677,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2117478015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3fe86d6e8cd79b4e9dd4f40a5b1f1f0, type: 3}
+  m_Script: {fileID: 11500000, guid: e419e61da9d946446826c687a08a7c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaves:
@@ -1688,7 +1688,7 @@ MonoBehaviour:
         type: 3}
       amount: 20
       groupSize: 3
-    deployments: 2
+    deployments: 1
   - name: Wave 2
     enemies:
     - name: Enemy 1
@@ -1699,7 +1699,7 @@ MonoBehaviour:
     - name: Enemy 2
       gameObject: {fileID: 6253559388872799984, guid: c0e8b75e50da8df4299405d0b904175e,
         type: 3}
-      amount: 6
+      amount: 3
       groupSize: 1
     - name: Enemy 3
       gameObject: {fileID: 6004075313457377879, guid: b7428e1ac6f58ea449bc197fcec29c7d,
@@ -1707,9 +1707,9 @@ MonoBehaviour:
       amount: 9
       groupSize: 1
     deployments: 3
-  minTimeForNextDeployment: 3
+  minTimeForNextDeployment: 5
   maxTimeForNextDeployment: 5
-  spawnRate: 0.75
+  spawnRate: 3
   enemyParentObject: 
   eventWaveInProgress: {fileID: 11400000, guid: c812d20b498eb1d47b020535c2f5d55e,
     type: 2}
@@ -1760,11 +1760,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPointType: 0
   startPointPickerType: 0
-  spawnerType: 0
+  spawnerType: 1
   endPointsType: 1
   prevStartPointType: 0
   prevStartPointPickerType: 0
-  prevSpawnerType: 0
+  prevSpawnerType: 1
   prevEndPointsType: 1
   currentStartPoint: {fileID: 2117478019}
   currentStartPointPicker: {fileID: 2117478018}
@@ -1807,7 +1807,7 @@ MonoBehaviour:
     enemies: []
   addColliders: 1
   triggerColliders: 1
-  colliderSize: {x: 0.5, y: 0.5, z: 0.5}
+  colliderSize: {x: 0.75, y: 0.5, z: 0.75}
   noEndPointEnemies: []
 --- !u!1 &2143996386
 GameObject:

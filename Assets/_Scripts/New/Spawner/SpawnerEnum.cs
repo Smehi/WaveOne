@@ -4,7 +4,8 @@
     {
         public enum SpawnerType
         {
-            Progressive
+            Progressive,
+            SemiRandom
         }
     }
 }

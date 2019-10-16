@@ -107,6 +107,9 @@ namespace SemihOrhan.WaveOne
                     case SpawnerEnum.SpawnerType.Progressive:
                         gameObject.AddComponent(typeof(Progressive));
                         break;
+                    case SpawnerEnum.SpawnerType.SemiRandom:
+                        gameObject.AddComponent(typeof(SemiRandom));
+                        break;
                 }
 
                 currentSpawner = GetComponent<ISpawner>() as Component;
