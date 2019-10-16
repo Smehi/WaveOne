@@ -8,7 +8,7 @@ using UnityEngine;
 namespace SemihOrhan.WaveOne.Spawners
 {
 #pragma warning disable 0649
-    public class Progressive : MonoBehaviour, ISpawner
+    public class PerWaveProgressive : MonoBehaviour, ISpawner
     {
         [Header("Waves")]
         [SerializeField] private List<SingleWave> enemyWaves = new List<SingleWave>();

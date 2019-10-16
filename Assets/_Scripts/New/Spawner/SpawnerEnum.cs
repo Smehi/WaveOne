@@ -4,8 +4,8 @@
     {
         public enum SpawnerType
         {
-            Progressive,
-            SemiRandom
+            PerWaveProgressive,
+            PerWaveSemiRandom
         }
     }
 }

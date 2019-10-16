@@ -104,11 +104,11 @@ namespace SemihOrhan.WaveOne
 
                 switch (spawnerType)
                 {
-                    case SpawnerEnum.SpawnerType.Progressive:
-                        gameObject.AddComponent(typeof(Progressive));
+                    case SpawnerEnum.SpawnerType.PerWaveProgressive:
+                        gameObject.AddComponent(typeof(PerWaveProgressive));
                         break;
-                    case SpawnerEnum.SpawnerType.SemiRandom:
-                        gameObject.AddComponent(typeof(SemiRandom));
+                    case SpawnerEnum.SpawnerType.PerWaveSemiRandom:
+                        gameObject.AddComponent(typeof(PerWaveSemiRandom));
                         break;
                 }
 
