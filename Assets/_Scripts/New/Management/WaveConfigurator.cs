@@ -2,6 +2,7 @@
 using SemihOrhan.WaveOne.StartPoints.StartPointPickers;
 using SemihOrhan.WaveOne.StartPoints;
 using SemihOrhan.WaveOne.Spawners;
+using SemihOrhan.WaveOne.Spawners.SpawnerPickers;
 using SemihOrhan.WaveOne.EndPoints;
 
 namespace SemihOrhan.WaveOne
@@ -15,6 +16,7 @@ namespace SemihOrhan.WaveOne
 
         [Header("Spawner")]
         [SerializeField] private SpawnerEnum.SpawnerType spawnerType;
+        [SerializeField] private SpawnerPickerEnum.SpawnerPickerType spawnerPickerType;
 
         [Header("End point")]
         [SerializeField] private EndPointsEnum.EndPointsType endPointsType;
@@ -22,11 +24,13 @@ namespace SemihOrhan.WaveOne
         [SerializeField, HideInInspector] private StartPointEnum.StartPointType prevStartPointType;
         [SerializeField, HideInInspector] private StartPointPickerEnum.StartPointPickerType prevStartPointPickerType;
         [SerializeField, HideInInspector] private SpawnerEnum.SpawnerType prevSpawnerType;
+        [SerializeField, HideInInspector] private SpawnerPickerEnum.SpawnerPickerType prevSpawnerPickerType;
         [SerializeField, HideInInspector] private EndPointsEnum.EndPointsType prevEndPointsType;
 
         [SerializeField, HideInInspector] private Component currentStartPoint;
         [SerializeField, HideInInspector] private Component currentStartPointPicker;
         [SerializeField, HideInInspector] private Component currentSpawner;
+        [SerializeField, HideInInspector] private Component currentSpawnerPicker;
         [SerializeField, HideInInspector] private Component currentEndPoint;
 
         public IStartPoint StartPointScript { get; private set; }
@@ -97,24 +101,40 @@ namespace SemihOrhan.WaveOne
         public void AddSpawnerComponents()
         {
             if (prevSpawnerType != spawnerType ||
+                prevSpawnerPickerType != spawnerPickerType ||
                 currentSpawner == null)
             {
-                if (currentSpawner != null)
+                if (currentSpawnerPicker != null)
+                    DestroyImmediate(currentSpawnerPicker);
+
+                if (prevSpawnerType != spawnerType && currentSpawner != null)
                     DestroyImmediate(currentSpawner);
 
                 switch (spawnerType)
                 {
-                    case SpawnerEnum.SpawnerType.PerWaveProgressive:
-                        gameObject.AddComponent(typeof(PerWaveProgressive));
+                    case SpawnerEnum.SpawnerType.PerWaveCustom:
                         break;
-                    case SpawnerEnum.SpawnerType.PerWaveSemiRandom:
-                        gameObject.AddComponent(typeof(PerWaveSemiRandom));
+                    case SpawnerEnum.SpawnerType.PerWaveRandomPool:
+                        break;
+                }
+
+                switch (spawnerPickerType)
+                {
+                    case SpawnerPickerEnum.SpawnerPickerType.InOrder:
+                        gameObject.AddComponent(typeof(InOrderSpawner));
+                        break;
+                    case SpawnerPickerEnum.SpawnerPickerType.RandomGuaranteed:
+                        gameObject.AddComponent(typeof(RandomGuaranteedSpawner));
+                        break;
+                    case SpawnerPickerEnum.SpawnerPickerType.ReverseOrder:
                         break;
                 }
 
                 currentSpawner = GetComponent<ISpawner>() as Component;
+                currentSpawnerPicker = GetComponent<ISpawnerPicker>() as Component;
 
                 prevSpawnerType = spawnerType;
+                prevSpawnerPickerType = spawnerPickerType;
             }
         }
 

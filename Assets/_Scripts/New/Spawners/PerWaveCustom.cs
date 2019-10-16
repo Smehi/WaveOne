@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using SemihOrhan.WaveOne.EndPoints;
 using SemihOrhan.WaveOne.Events;
+using SemihOrhan.WaveOne.Spawners.SpawnerPickers;
 using SemihOrhan.WaveOne.Util;
 using UnityEngine;
 
 namespace SemihOrhan.WaveOne.Spawners
 {
 #pragma warning disable 0649
-    public class PerWaveProgressive : MonoBehaviour, ISpawner
+    public class PerWaveCustom : MonoBehaviour, ISpawner
     {
         [Header("Waves")]
         [SerializeField] private List<SingleWave> enemyWaves = new List<SingleWave>();
@@ -33,6 +34,7 @@ namespace SemihOrhan.WaveOne.Spawners
 
         private WaveConfigurator waveConfig;
         private EndPoint endPoints;
+        private ISpawnerPicker spawnerPicker;
 
         private void Start()
         {
@@ -63,6 +65,7 @@ namespace SemihOrhan.WaveOne.Spawners
             }
 
             waveConfig = GetComponent<WaveConfigurator>();
+            spawnerPicker = GetComponent<ISpawnerPicker>();
         }
 
         [ContextMenu("Start wave")]
@@ -89,13 +92,16 @@ namespace SemihOrhan.WaveOne.Spawners
             int amountGroups = 0;
             GameObject instance;
 
+            spawnerPicker.SetListSize(enemyWaves[currentWave].enemies.Count);
+
             // The coroutine only runs for a single deployment.
             while (!finishedDeploying)
             {
                 // Calculate the amount of troops to deploy for the current deployment and current enemy.
                 if (!calculatedTroops)
                 {
-                    if (currentEnemy < enemyWaves[currentWave].enemies.Count)
+                    currentEnemy = spawnerPicker.GetIndex();
+                    if (currentEnemy != -1)
                     {
                         // Divide amount of enemies by the amount of deployments to get the amount to deploy.
                         toDeploy = Mathf.FloorToInt(enemyWaves[currentWave].enemies[currentEnemy].amount / enemyWaves[currentWave].deployments);
@@ -183,7 +189,6 @@ namespace SemihOrhan.WaveOne.Spawners
                     toDeploy = 0;
                     deployedCount = 0;
                     currentGroup = 0;
-                    currentEnemy++;
                 }
 
                 yield return new WaitForSeconds(spawnRate);
