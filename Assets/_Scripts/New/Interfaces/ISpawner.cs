@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WaveOne.Spawners
+namespace SemihOrhan.WaveOne.Spawners
 {
     public interface ISpawner
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace WaveOne.EndPoints
+namespace SemihOrhan.WaveOne.EndPoints
 {
     public class EndPoint : MonoBehaviour
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using WaveOne.StartPoints.StartPointPickers;
+using SemihOrhan.WaveOne.StartPoints.StartPointPickers;
 
-namespace WaveOne.StartPoints
+namespace SemihOrhan.WaveOne.StartPoints
 {
 #pragma warning disable 0649
     public class ListOfTransforms : MonoBehaviour, IStartPoint

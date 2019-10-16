@@ -1,4 +1,4 @@
-﻿namespace WaveOne.StartPoints.StartPointPickers
+﻿namespace SemihOrhan.WaveOne.StartPoints.StartPointPickers
 {
     public static class StartPointPickerEnum
     {

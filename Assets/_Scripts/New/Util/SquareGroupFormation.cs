@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace WaveOne.Util
+namespace SemihOrhan.WaveOne.Util
 {
     public class SquareGroupFormation
     {

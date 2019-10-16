@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WaveOne.Events;
+using SemihOrhan.WaveOne.Events;
 
-namespace WaveOne.Spawners
+namespace SemihOrhan.WaveOne.Spawners
 {
 #pragma warning disable 0649
     public class SinglePointSpawner : MonoBehaviour

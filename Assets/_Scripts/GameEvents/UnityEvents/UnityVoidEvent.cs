@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Events;
 
-namespace WaveOne.Events
+namespace SemihOrhan.WaveOne.Events
 {
     [System.Serializable]
     public class UnityVoidEvent : UnityEvent<Void> { }

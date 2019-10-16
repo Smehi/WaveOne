@@ -1,4 +1,4 @@
-﻿namespace WaveOne.Events
+﻿namespace SemihOrhan.WaveOne.Events
 {
     [System.Serializable]
     public struct Void { }

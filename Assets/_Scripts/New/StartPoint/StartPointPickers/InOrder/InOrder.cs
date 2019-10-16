@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace WaveOne.StartPoints.StartPointPickers
+namespace SemihOrhan.WaveOne.StartPoints.StartPointPickers
 {
     public class InOrder<T> : MonoBehaviour, IStartPointPicker<T>
     {

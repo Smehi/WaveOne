@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using WaveOne;
+using SemihOrhan.WaveOne;
 
 [CustomEditor(typeof(WaveConfigurator))]
 public class WaveConfiguratorEditor : Editor

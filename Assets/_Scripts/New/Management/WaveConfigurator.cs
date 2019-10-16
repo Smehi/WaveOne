@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using WaveOne.StartPoints.StartPointPickers;
-using WaveOne.StartPoints;
-using WaveOne.Spawners;
-using WaveOne.EndPoints;
+using SemihOrhan.WaveOne.StartPoints.StartPointPickers;
+using SemihOrhan.WaveOne.StartPoints;
+using SemihOrhan.WaveOne.Spawners;
+using SemihOrhan.WaveOne.EndPoints;
 
-namespace WaveOne
+namespace SemihOrhan.WaveOne
 {
 #pragma warning disable 0649
     public class WaveConfigurator : MonoBehaviour

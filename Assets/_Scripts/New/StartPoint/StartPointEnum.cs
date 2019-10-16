@@ -1,4 +1,4 @@
-﻿namespace WaveOne.StartPoints
+﻿namespace SemihOrhan.WaveOne.StartPoints
 {
     public static class StartPointEnum
     {

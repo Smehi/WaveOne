@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace WaveOne.Events
+namespace SemihOrhan.WaveOne.Events
 {
     [System.Serializable]
     public class UnityTransformListEvent : UnityEvent<List<Transform>> { }

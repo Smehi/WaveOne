@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WaveOne.StartPoints.Shapes
+namespace SemihOrhan.WaveOne.StartPoints.Shapes
 {
     [System.Serializable]
     public struct Box

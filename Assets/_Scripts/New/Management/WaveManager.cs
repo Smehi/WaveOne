@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WaveOne
+namespace SemihOrhan.WaveOne
 {
     public class WaveManager : MonoBehaviour
     {

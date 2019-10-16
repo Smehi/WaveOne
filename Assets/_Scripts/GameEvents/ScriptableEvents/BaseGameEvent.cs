@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace WaveOne.Events
+namespace SemihOrhan.WaveOne.Events
 {
     public abstract class BaseGameEvent<T> : ScriptableObject
     {

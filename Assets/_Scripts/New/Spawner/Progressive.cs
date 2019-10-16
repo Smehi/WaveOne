@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WaveOne.EndPoints;
-using WaveOne.Events;
-using WaveOne.Util;
+using SemihOrhan.WaveOne.EndPoints;
+using SemihOrhan.WaveOne.Events;
+using SemihOrhan.WaveOne.Util;
 
-namespace WaveOne.Spawners
+namespace SemihOrhan.WaveOne.Spawners
 {
 #pragma warning disable 0649
     public class Progressive : MonoBehaviour, ISpawner

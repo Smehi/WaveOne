@@ -1,4 +1,4 @@
-﻿namespace WaveOne.EndPoints
+﻿namespace SemihOrhan.WaveOne.EndPoints
 {
     public static class EndPointsEnum
     {

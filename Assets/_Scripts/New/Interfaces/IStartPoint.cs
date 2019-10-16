@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WaveOne.StartPoints
+namespace SemihOrhan.WaveOne.StartPoints
 {
     public interface IStartPoint
     {

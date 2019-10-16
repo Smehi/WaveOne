@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using WaveOne.StartPoints.Shapes;
+using SemihOrhan.WaveOne.StartPoints.Shapes;
 
-namespace WaveOne.StartPoints.StartPointPickers
+namespace SemihOrhan.WaveOne.StartPoints.StartPointPickers
 {
     [RequireComponent(typeof(ListOfSpheres))]
     public class ReverseOrderSphere : ReverseOrder<Sphere>

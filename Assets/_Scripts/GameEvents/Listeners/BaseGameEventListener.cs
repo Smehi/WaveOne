@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace WaveOne.Events
+namespace SemihOrhan.WaveOne.Events
 {
 #pragma warning disable 0649
     public abstract class BaseGameEventListener<T, E, UER> : MonoBehaviour,

@@ -1,4 +1,4 @@
-﻿namespace WaveOne.Spawners
+﻿namespace SemihOrhan.WaveOne.Spawners
 {
     public static class SpawnerEnum
     {
