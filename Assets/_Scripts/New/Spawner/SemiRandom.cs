@@ -101,8 +101,10 @@ namespace SemihOrhan.WaveOne.Spawners
                 // Calculate the amount of troops to deploy for the current deployment and current enemy.
                 if (!calculatedTroops)
                 {
+                    // Find an enemy that wasnt chosen before.
                     do
                     {
+                        // If all enemies have been chosen already in this deployment exit out of the loop.
                         if (!wasChosen.Contains(false))
                             continue;
 
