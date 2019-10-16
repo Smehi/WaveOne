@@ -3,14 +3,31 @@ using UnityEngine;
 
 namespace SemihOrhan.WaveOne.EndPoints
 {
+#pragma warning disable 0649
     public class EndPoint : MonoBehaviour
     {
         [SerializeField] private List<SinglePoint> endPoints = new List<SinglePoint>();
+        [SerializeField] private bool addColliders;
+        [SerializeField] private bool triggerColliders;
+        [SerializeField] private Vector3 colliderSize;
         [Tooltip("Put in all the enemies that should not have a end point. " +
                  "For example if you have your own logic for those enemies.")]
         [SerializeField] private List<GameObject> noEndPointEnemies = new List<GameObject>();
 
         private Dictionary<GameObject, List<Transform>> enemyEndPointsPairs = new Dictionary<GameObject, List<Transform>>();
+
+        private void Awake()
+        {
+            if (addColliders)
+            {
+                for (int i = 0; i < endPoints.Count; i++)
+                {
+                    BoxCollider col = endPoints[i].endPoint.gameObject.AddComponent<BoxCollider>();
+                    col.size = colliderSize;
+                    col.isTrigger = triggerColliders;
+                }
+            }
+        }
 
         public void SetValidEndPointsPerEnemy(GameObject enemy)
         {
@@ -45,6 +62,21 @@ namespace SemihOrhan.WaveOne.EndPoints
             [Tooltip("Drag in all the enemies that are allowed to have this as their end point. " +
                      "Leave it empty if ALL enemies are allowed to have this as their end point.")]
             public List<GameObject> enemies;
+        }
+
+        private void OnDrawGizmos()
+        {
+            for (int i = 0; i < endPoints.Count; i++)
+            {
+                Gizmos.color = Color.white;
+                Gizmos.DrawWireSphere(endPoints[i].endPoint.position, 0.1f);
+
+                if (addColliders)
+                {
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawWireCube(endPoints[i].endPoint.position, colliderSize); 
+                }
+            }
         }
 
         private void OnValidate()

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using SemihOrhan.WaveOne.EndPoints;
 using SemihOrhan.WaveOne.Events;
 using SemihOrhan.WaveOne.Util;
+using UnityEngine;
 
 namespace SemihOrhan.WaveOne.Spawners
 {
@@ -21,6 +21,9 @@ namespace SemihOrhan.WaveOne.Spawners
                  "Keep empty if you don't want to spawn in another GameObject.")]
         [SerializeField] private string enemyParentObject;
         [SerializeField] private BoolEvent eventWaveInProgress;
+        [SerializeField] private IntEvent eventTotalEnemies;
+        [SerializeField] private IntEvent eventDeployedEnemies;
+        [SerializeField] private IntEvent eventAliveEnemies;
 
         private int currentWave; // 0 indexed.
         private int currentDeployment; // 1 indexed.
@@ -30,10 +33,6 @@ namespace SemihOrhan.WaveOne.Spawners
 
         private WaveConfigurator waveConfig;
         private EndPoint endPoints;
-
-        public int TotalEnemies { get; private set; }
-        public int DeployedEnemies { get; private set; }
-        public int AliveEnemies { get; private set; }
 
         private void Start()
         {
@@ -56,7 +55,9 @@ namespace SemihOrhan.WaveOne.Spawners
                 for (int i = 0; i < enemyWaves.Count; i++)
                     for (int j = 0; j < enemyWaves[i].enemies.Count; j++)
                     {
-                        TotalEnemies += enemyWaves[i].enemies[j].amount;
+                        if (eventTotalEnemies != null)
+                            eventTotalEnemies.Raise(enemyWaves[i].enemies[j].amount);
+
                         endPoints.SetValidEndPointsPerEnemy(enemyWaves[i].enemies[j].gameObject);
                     }
             }
@@ -155,8 +156,12 @@ namespace SemihOrhan.WaveOne.Spawners
 
                         instance.transform.position += relativeGroupPositions[i];
 
-                        DeployedEnemies++;
-                        AliveEnemies++;
+                        if (eventDeployedEnemies != null)
+                            eventDeployedEnemies.Raise(1);
+
+                        if (eventAliveEnemies != null)
+                            eventAliveEnemies.Raise(1);
+
                         deployedCount++;
 
                         if (setEndPoints)

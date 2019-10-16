@@ -8,6 +8,8 @@ namespace SemihOrhan.WaveOne
     {
         [SerializeField] private List<WaveConfigurator> waveConfigurators = new List<WaveConfigurator>();
 
+        public List<WaveConfigurator> WaveConfigurators { get => waveConfigurators; }
+
         private void Start()
         {
             WaveConfigurator[] arr = FindObjectsOfType<WaveConfigurator>();
