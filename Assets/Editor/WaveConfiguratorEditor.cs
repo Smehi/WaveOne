@@ -11,6 +11,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
         {
             WaveConfigurator waveConfig = target as WaveConfigurator;
             SerializedObject so = new SerializedObject(target);
+            so.Update();
 
             SerializedProperty startPointType = so.FindProperty("startPointType");
             SerializedProperty startPointPickerType = so.FindProperty("startPointPickerType");

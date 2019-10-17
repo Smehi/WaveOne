@@ -9,6 +9,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
         public override void OnInspectorGUI()
         {
             SerializedObject so = new SerializedObject(target);
+            so.Update();
 
             SerializedProperty endPoints = so.FindProperty("endPoints");
             SerializedProperty addColliders = so.FindProperty("addColliders");
@@ -16,10 +17,10 @@ namespace SemihOrhan.WaveOne.CustomEditors
             SerializedProperty colliderSize = so.FindProperty("colliderSize");
             SerializedProperty noEndPointEnemies = so.FindProperty("noEndPointEnemies");
 
-            using (new EditorGUI.DisabledScope(true))
-            {
-                EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour(target as EndPoint), typeof(EndPoint), false);
-            }
+            //using (new EditorGUI.DisabledScope(true))
+            //{
+            //    EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour(target as EndPoint), typeof(EndPoint), false);
+            //}
 
             EditorGUILayout.PropertyField(endPoints, true);
             EditorGUILayout.PropertyField(addColliders, true);

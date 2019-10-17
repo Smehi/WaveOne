@@ -12,6 +12,11 @@ namespace SemihOrhan.WaveOne.Spawners
     public class PerWaveCustom : MonoBehaviour, ISpawner
     {
         [Header("Waves")]
+#pragma warning disable 0414
+        // These values are only used for in the editor.
+        [SerializeField] private bool showWaveListControls = true;
+        [SerializeField] private bool showEnemiesListControls = true;
+#pragma warning restore 0414
         [SerializeField] private List<SingleWave> enemyWaves = new List<SingleWave>();
         [SerializeField] private float minTimeForNextDeployment;
         [SerializeField] private float maxTimeForNextDeployment;
