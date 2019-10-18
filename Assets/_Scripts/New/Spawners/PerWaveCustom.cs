@@ -11,16 +11,20 @@ namespace SemihOrhan.WaveOne.Spawners
 #pragma warning disable 0649
     public class PerWaveCustom : MonoBehaviour, ISpawner
     {
-        [Header("Waves")]
 #pragma warning disable 0414
-        // These values are only used for in the editor.
+        [Header("Editor controls")]
         [SerializeField] private bool showWaveListControls = true;
         [SerializeField] private bool showEnemiesListControls = true;
 #pragma warning restore 0414
+
+        [Header("Waves")]
         [SerializeField] private List<SingleWave> enemyWaves = new List<SingleWave>();
         [SerializeField] private float minTimeForNextDeployment;
         [SerializeField] private float maxTimeForNextDeployment;
-        [SerializeField, Tooltip("Enemies per second")] private float spawnRate;
+        [Tooltip("Enemies per second")]
+        [SerializeField] private float spawnRate;
+        [Tooltip("Automatically invoke the next deployment")]
+        [SerializeField] private bool autoDeploy = true;
 
         [Header("Miscellaneous")]
         [Tooltip("Name of the parent GameObject to spawn enemies in. To indicate a child of another object use a \"/\"." +
@@ -92,9 +96,9 @@ namespace SemihOrhan.WaveOne.Spawners
             int toDeploy = 0;
             int deployedCount = 0;
             int currentEnemy = 0;
-            int presetIndex;
+            int presetIndexEndPoint;
             int currentGroup = 0;
-            int amountGroups = 0;
+            int amountFullGroups = 0;
             GameObject instance;
 
             spawnerPicker.SetListSize(enemyWaves[currentWave].enemies.Count);
@@ -110,7 +114,7 @@ namespace SemihOrhan.WaveOne.Spawners
                     {
                         // Divide amount of enemies by the amount of deployments to get the amount to deploy.
                         toDeploy = Mathf.FloorToInt(enemyWaves[currentWave].enemies[currentEnemy].amount / enemyWaves[currentWave].deployments);
-                        amountGroups = Mathf.FloorToInt(toDeploy / enemyWaves[currentWave].enemies[currentEnemy].groupSize);
+                        amountFullGroups = Mathf.FloorToInt(toDeploy / enemyWaves[currentWave].enemies[currentEnemy].groupSize);
 
                         // This means we have reached the last deployment.
                         // At the last deployment we want to add the remainder of the enemies count.
@@ -137,10 +141,10 @@ namespace SemihOrhan.WaveOne.Spawners
                     bool gotRelativeGroupPositions = false;
                     List<Vector3> relativeGroupPositions = new List<Vector3>();
                     Vector3 spawnPointPos = waveConfig.StartPointScript.GetPoint();
-                    presetIndex = Random.Range(0, endPoints.GetEndPoints(enemyWaves[currentWave].enemies[currentEnemy].gameObject).Count);
+                    presetIndexEndPoint = Random.Range(0, endPoints.GetEndPoints(enemyWaves[currentWave].enemies[currentEnemy].gameObject).Count);
                     int spawnAmount = enemyWaves[currentWave].enemies[currentEnemy].groupSize;
 
-                    if (currentGroup == amountGroups)
+                    if (currentGroup == amountFullGroups)
                         spawnAmount = toDeploy % enemyWaves[currentWave].enemies[currentEnemy].groupSize;
 
                     for (int i = 0; i < spawnAmount; i++)
@@ -180,7 +184,7 @@ namespace SemihOrhan.WaveOne.Spawners
                         {
                             SetEndPoint(enemyWaves[currentWave].enemies[currentEnemy].gameObject,
                                         instance,
-                                        presetIndex);
+                                        presetIndexEndPoint);
                         }
                     }
 
@@ -213,8 +217,11 @@ namespace SemihOrhan.WaveOne.Spawners
             {
                 currentDeployment++;
 
-                float randomTime = Random.Range(minTimeForNextDeployment, maxTimeForNextDeployment);
-                Invoke("StartWave", randomTime);
+                if (autoDeploy)
+                {
+                    float randomTime = Random.Range(minTimeForNextDeployment, maxTimeForNextDeployment);
+                    Invoke("StartWave", randomTime); 
+                }
             }
         }
 
