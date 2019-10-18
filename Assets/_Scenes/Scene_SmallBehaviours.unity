@@ -186,26 +186,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPoints:
   - name: End point 1
-    endPoint: {fileID: 0}
+    endPoint: {fileID: 27718832}
     enemies:
     - {fileID: 4762860196327269951, guid: 9017dbb41ad9c864abdf906adabbda8b, type: 3}
     - {fileID: 6004075313457377879, guid: b7428e1ac6f58ea449bc197fcec29c7d, type: 3}
   - name: End point 2
-    endPoint: {fileID: 0}
+    endPoint: {fileID: 574865349}
     enemies:
     - {fileID: 6253559388872799984, guid: c0e8b75e50da8df4299405d0b904175e, type: 3}
   - name: End point 3
-    endPoint: {fileID: 0}
+    endPoint: {fileID: 645900199}
     enemies:
     - {fileID: 6004075313457377879, guid: b7428e1ac6f58ea449bc197fcec29c7d, type: 3}
   - name: End point 4
-    endPoint: {fileID: 0}
+    endPoint: {fileID: 1875144558}
     enemies:
     - {fileID: 4762860196327269951, guid: 9017dbb41ad9c864abdf906adabbda8b, type: 3}
     - {fileID: 6253559388872799984, guid: c0e8b75e50da8df4299405d0b904175e, type: 3}
     - {fileID: 6004075313457377879, guid: b7428e1ac6f58ea449bc197fcec29c7d, type: 3}
   - name: End point 5
-    endPoint: {fileID: 0}
+    endPoint: {fileID: 1935618076}
     enemies: []
   addColliders: 1
   triggerColliders: 1
