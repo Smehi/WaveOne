@@ -34,6 +34,9 @@ namespace SemihOrhan.WaveOne.CustomEditors
 
             EditorGUILayout.PropertyField(endPointsType, true);
 
+            // If we do this after the buttons shit hits the fan.
+            so.ApplyModifiedProperties();
+
             Color oldColor = GUI.backgroundColor;
             if (GUILayout.Button("Add components (and destroy old)"))
             {
@@ -54,8 +57,6 @@ namespace SemihOrhan.WaveOne.CustomEditors
                 }
             }
             GUI.backgroundColor = oldColor;
-
-            so.ApplyModifiedProperties();
         }
     } 
 }

@@ -53,7 +53,7 @@ namespace SemihOrhan.WaveOne
                 if (currentStartPointPicker != null)
                     DestroyImmediate(currentStartPointPicker);
 
-                if (prevStartPointType != startPointType)
+                if (prevStartPointType != startPointType || currentStartPoint == null)
                 {
                     if (currentStartPoint != null)
                         DestroyImmediate(currentStartPoint);
@@ -105,7 +105,7 @@ namespace SemihOrhan.WaveOne
                 if (currentSpawnerPicker != null)
                     DestroyImmediate(currentSpawnerPicker);
 
-                if (prevSpawnerType != spawnerType)
+                if (prevSpawnerType != spawnerType || currentSpawner == null)
                 {
                     if (currentSpawner != null)
                         DestroyImmediate(currentSpawner);
@@ -134,7 +134,7 @@ namespace SemihOrhan.WaveOne
                         case SpawnerPickerEnum.SpawnerPickerType.ReverseOrder:
                             gameObject.AddComponent<ReverseOrderSpawner>();
                             break;
-                    } 
+                    }
                 }
 
                 currentSpawner = GetComponent<ISpawner>() as Component;
@@ -172,6 +172,7 @@ namespace SemihOrhan.WaveOne
         {
             DestroyImmediate(currentStartPointPicker);
             DestroyImmediate(currentStartPoint);
+            DestroyImmediate(currentSpawnerPicker);
             DestroyImmediate(currentSpawner);
             DestroyImmediate(currentEndPoint);
         }

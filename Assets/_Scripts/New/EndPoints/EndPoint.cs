@@ -68,13 +68,16 @@ namespace SemihOrhan.WaveOne.EndPoints
         {
             for (int i = 0; i < endPoints.Count; i++)
             {
-                Gizmos.color = Color.white;
-                Gizmos.DrawWireSphere(endPoints[i].endPoint.position, 0.1f);
-
-                if (addColliders)
+                if (endPoints[i].endPoint)
                 {
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawWireCube(endPoints[i].endPoint.position, colliderSize); 
+                    Gizmos.color = Color.white;
+                    Gizmos.DrawWireSphere(endPoints[i].endPoint.position, 0.1f);
+
+                    if (addColliders)
+                    {
+                        Gizmos.color = Color.green;
+                        Gizmos.DrawWireCube(endPoints[i].endPoint.position, colliderSize);
+                    } 
                 }
             }
         }

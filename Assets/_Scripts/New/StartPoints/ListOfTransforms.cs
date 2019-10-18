@@ -34,7 +34,8 @@ namespace SemihOrhan.WaveOne.StartPoints
             Gizmos.color = Color.white;
             for (int i = 0; i < startPoints.Count; i++)
             {
-                Gizmos.DrawWireSphere(startPoints[i].position, 0.2f);
+                if (startPoints[i])
+                    Gizmos.DrawWireSphere(startPoints[i].position, 0.2f); 
             }
 
             Gizmos.color = Color.red;

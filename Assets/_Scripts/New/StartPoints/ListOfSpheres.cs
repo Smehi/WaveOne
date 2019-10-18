@@ -34,7 +34,7 @@ namespace SemihOrhan.WaveOne.StartPoints
             Vector3 dirVector = new Vector3(x, y, z);
 
             Vector3 randomPoint = dirVector.normalized * Random.Range(sphere.minDistanceFromCenter, sphere.radius);
-            Vector3 relativePoint = v = sphere.position + randomPoint;
+            Vector3 relativePoint = v = sphere.transform.position + randomPoint;
 
             return relativePoint;
         }
@@ -50,7 +50,7 @@ namespace SemihOrhan.WaveOne.StartPoints
                 return -1;
 
             return 1;
-        } 
+        }
         #endregion
 
         #region Validation & Gizmos
@@ -61,13 +61,15 @@ namespace SemihOrhan.WaveOne.StartPoints
 
             for (int i = 0; i < startPoints.Count; i++)
             {
-                Gizmos.DrawWireSphere(startPoints[i].position, startPoints[i].radius);
+                if (startPoints[i].transform)
+                    Gizmos.DrawWireSphere(startPoints[i].transform.position, startPoints[i].radius);
             }
 
             Gizmos.color = Color.black;
             for (int i = 0; i < startPoints.Count; i++)
             {
-                Gizmos.DrawSphere(startPoints[i].position, startPoints[i].minDistanceFromCenter);
+                if (startPoints[i].transform)
+                    Gizmos.DrawSphere(startPoints[i].transform.position, startPoints[i].minDistanceFromCenter);
             }
 
             Gizmos.color = Color.red;
@@ -82,7 +84,7 @@ namespace SemihOrhan.WaveOne.StartPoints
                 {
                     startPoints[i] = new Sphere
                     {
-                        position = startPoints[i].position,
+                        transform = startPoints[i].transform,
                         radius = startPoints[i].radius,
                         minDistanceFromCenter = startPoints[i].radius
                     };
@@ -91,7 +93,7 @@ namespace SemihOrhan.WaveOne.StartPoints
                 {
                     startPoints[i] = new Sphere
                     {
-                        position = startPoints[i].position,
+                        transform = startPoints[i].transform,
                         radius = startPoints[i].radius,
                         minDistanceFromCenter = 0
                     };

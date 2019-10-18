@@ -69,7 +69,7 @@ namespace SemihOrhan.WaveOne.StartPoints
             }
 
             // Add the Vector3 we got to the box base position because the box isn't always at (0, 0, 0).
-            return v = (box.position + new Vector3(x, y, z));
+            return v = (box.transform.position + new Vector3(x, y, z));
         }
 
         #region Helper functions
@@ -107,7 +107,7 @@ namespace SemihOrhan.WaveOne.StartPoints
                 return -1;
 
             return 1;
-        } 
+        }
         #endregion
 
         #region Validation & Gizmos
@@ -118,13 +118,15 @@ namespace SemihOrhan.WaveOne.StartPoints
 
             for (int i = 0; i < startPoints.Count; i++)
             {
-                Gizmos.DrawWireCube(startPoints[i].position, startPoints[i].size);
+                if (startPoints[i].transform)
+                    Gizmos.DrawWireCube(startPoints[i].transform.position, startPoints[i].size);
             }
 
             Gizmos.color = Color.black;
             for (int i = 0; i < startPoints.Count; i++)
             {
-                Gizmos.DrawCube(startPoints[i].position, startPoints[i].minDistanceFromCenter);
+                if (startPoints[i].transform)
+                    Gizmos.DrawCube(startPoints[i].transform.position, startPoints[i].minDistanceFromCenter);
             }
 
             Gizmos.color = Color.red;
@@ -189,7 +191,7 @@ namespace SemihOrhan.WaveOne.StartPoints
                 {
                     startPoints[i] = new Box
                     {
-                        position = startPoints[i].position,
+                        transform = startPoints[i].transform,
                         size = SetMinMaxVector(startPoints[i].size, Vector3.zero, false),
                         minDistanceFromCenter = startPoints[i].minDistanceFromCenter
                     };
@@ -202,7 +204,7 @@ namespace SemihOrhan.WaveOne.StartPoints
                 {
                     startPoints[i] = new Box
                     {
-                        position = startPoints[i].position,
+                        transform = startPoints[i].transform,
                         size = startPoints[i].size,
                         minDistanceFromCenter = SetMinMaxVector(startPoints[i].minDistanceFromCenter, Vector3.zero, false)
                     };
@@ -215,7 +217,7 @@ namespace SemihOrhan.WaveOne.StartPoints
                 {
                     startPoints[i] = new Box
                     {
-                        position = startPoints[i].position,
+                        transform = startPoints[i].transform,
                         size = startPoints[i].size,
                         minDistanceFromCenter = SetMinMaxVector(startPoints[i].minDistanceFromCenter, startPoints[i].size, true)
                     };
