@@ -2,9 +2,9 @@
 
 namespace SemihOrhan.WaveOne.StartPoints.StartPointPickers
 {
-    public interface IStartPointPicker<T>
+    public interface IStartPointPicker
     {
-        void SetList(List<T> list);
-        T GetListItem();
+        void SetListSize(int size);
+        int GetIndex();
     }
 }

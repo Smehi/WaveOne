@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using SemihOrhan.WaveOne.Spawners;
+using SemihOrhan.WaveOne.Spawners.SpawnerPickers;
 
 namespace SemihOrhan.WaveOne.CustomEditors
 {
@@ -17,15 +18,18 @@ namespace SemihOrhan.WaveOne.CustomEditors
             SerializedProperty startPointPickerType = so.FindProperty("startPointPickerType");
             SerializedProperty spawnerType = so.FindProperty("spawnerType");
             SerializedProperty spawnerPickerType = so.FindProperty("spawnerPickerType");
+            SerializedProperty needSpawnerPicker = so.FindProperty("needSpawnerPicker");
             SerializedProperty endPointsType = so.FindProperty("endPointsType");
 
             EditorGUILayout.PropertyField(startPointType, true);
             EditorGUILayout.PropertyField(startPointPickerType, true);
 
             EditorGUILayout.PropertyField(spawnerType, true);
+            needSpawnerPicker.boolValue = false;
             if (spawnerType.enumValueIndex == (int)SpawnerEnum.SpawnerType.PerWaveCustom)
             {
-                EditorGUILayout.PropertyField(spawnerPickerType, true); 
+                needSpawnerPicker.boolValue = true;
+                EditorGUILayout.PropertyField(spawnerPickerType, true);
             }
 
             EditorGUILayout.PropertyField(endPointsType, true);

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-namespace SemihOrhan.WaveOne.Spawners.SpawnerPickers
+namespace SemihOrhan.WaveOne.StartPoints.StartPointPickers
 {
-    [RequireComponent(typeof(ISpawner))]
-    public class InOrderSpawner : MonoBehaviour, ISpawnerPicker
+    [RequireComponent(typeof(IStartPoint))]
+    public class InOrderStartPoint : MonoBehaviour, IStartPointPicker
     {
         private int size;
         private int index;
@@ -17,7 +17,7 @@ namespace SemihOrhan.WaveOne.Spawners.SpawnerPickers
         public int GetIndex()
         {
             if (index == size)
-                return -1;
+                index = 0;
 
             return index++;
         }

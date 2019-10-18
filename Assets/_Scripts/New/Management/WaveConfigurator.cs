@@ -36,6 +36,8 @@ namespace SemihOrhan.WaveOne
         public IStartPoint StartPointScript { get; private set; }
         public ISpawner SpawnerScript { get; private set; }
 
+        [SerializeField, HideInInspector] private bool needSpawnerPicker;
+
         private void Start()
         {
             StartPointScript = GetComponent<IStartPoint>();
@@ -51,47 +53,37 @@ namespace SemihOrhan.WaveOne
                 if (currentStartPointPicker != null)
                     DestroyImmediate(currentStartPointPicker);
 
-                if (prevStartPointType != startPointType && currentStartPoint != null)
-                    DestroyImmediate(currentStartPoint);
-
-                switch (startPointType)
+                if (prevStartPointType != startPointType)
                 {
-                    case StartPointEnum.StartPointType.Transform:
-                        switch (startPointPickerType)
-                        {
-                            case StartPointPickerEnum.StartPointPickerType.InOrder:
-                                currentStartPointPicker = gameObject.AddComponent(typeof(InOrderTransform));
-                                break;
-                            case StartPointPickerEnum.StartPointPickerType.ReverseOrder:
-                                currentStartPointPicker = gameObject.AddComponent(typeof(ReverseOrderTransform));
-                                break;
-                        }
+                    if (currentStartPoint != null)
+                        DestroyImmediate(currentStartPoint);
+
+                    switch (startPointType)
+                    {
+                        case StartPointEnum.StartPointType.Transform:
+                            gameObject.AddComponent<ListOfTransforms>();
+                            break;
+                        case StartPointEnum.StartPointType.Box:
+                            gameObject.AddComponent<ListOfBoxes>();
+                            break;
+                        case StartPointEnum.StartPointType.Sphere:
+                            gameObject.AddComponent<ListOfSpheres>();
+                            break;
+                    }
+                }
+
+                switch (startPointPickerType)
+                {
+                    case StartPointPickerEnum.StartPointPickerType.InOrder:
+                        gameObject.AddComponent<InOrderStartPoint>();
                         break;
-                    case StartPointEnum.StartPointType.Box:
-                        switch (startPointPickerType)
-                        {
-                            case StartPointPickerEnum.StartPointPickerType.InOrder:
-                                currentStartPointPicker = gameObject.AddComponent(typeof(InOrderBox));
-                                break;
-                            case StartPointPickerEnum.StartPointPickerType.ReverseOrder:
-                                currentStartPointPicker = gameObject.AddComponent(typeof(ReverseOrderBox));
-                                break;
-                        }
-                        break;
-                    case StartPointEnum.StartPointType.Sphere:
-                        switch (startPointPickerType)
-                        {
-                            case StartPointPickerEnum.StartPointPickerType.InOrder:
-                                currentStartPointPicker = gameObject.AddComponent(typeof(InOrderSphere));
-                                break;
-                            case StartPointPickerEnum.StartPointPickerType.ReverseOrder:
-                                currentStartPointPicker = gameObject.AddComponent(typeof(ReverseOrderSphere));
-                                break;
-                        }
+                    case StartPointPickerEnum.StartPointPickerType.ReverseOrder:
+                        gameObject.AddComponent<ReverseOrderStartPoint>();
                         break;
                 }
 
                 currentStartPoint = GetComponent<IStartPoint>() as Component;
+                currentStartPointPicker = GetComponent<IStartPointPicker>() as Component;
 
                 prevStartPointType = startPointType;
                 prevStartPointPickerType = startPointPickerType;
@@ -102,32 +94,39 @@ namespace SemihOrhan.WaveOne
         {
             if (prevSpawnerType != spawnerType ||
                 prevSpawnerPickerType != spawnerPickerType ||
-                currentSpawner == null)
+                currentSpawner == null || currentSpawnerPicker == null)
             {
                 if (currentSpawnerPicker != null)
                     DestroyImmediate(currentSpawnerPicker);
 
-                if (prevSpawnerType != spawnerType && currentSpawner != null)
-                    DestroyImmediate(currentSpawner);
-
-                switch (spawnerType)
+                if (prevSpawnerType != spawnerType)
                 {
-                    case SpawnerEnum.SpawnerType.PerWaveCustom:
-                        break;
-                    case SpawnerEnum.SpawnerType.PerWaveRandomPool:
-                        break;
+                    if (currentSpawner != null)
+                        DestroyImmediate(currentSpawner);
+
+                    switch (spawnerType)
+                    {
+                        case SpawnerEnum.SpawnerType.PerWaveCustom:
+                            gameObject.AddComponent<PerWaveCustom>();
+                            break;
+                        case SpawnerEnum.SpawnerType.PerWaveRandomPool:
+                            break;
+                    }
                 }
 
-                switch (spawnerPickerType)
+                if (needSpawnerPicker)
                 {
-                    case SpawnerPickerEnum.SpawnerPickerType.InOrder:
-                        gameObject.AddComponent(typeof(InOrderSpawner));
-                        break;
-                    case SpawnerPickerEnum.SpawnerPickerType.RandomGuaranteed:
-                        gameObject.AddComponent(typeof(RandomGuaranteedSpawner));
-                        break;
-                    case SpawnerPickerEnum.SpawnerPickerType.ReverseOrder:
-                        break;
+                    switch (spawnerPickerType)
+                    {
+                        case SpawnerPickerEnum.SpawnerPickerType.InOrder:
+                            gameObject.AddComponent<InOrderSpawner>();
+                            break;
+                        case SpawnerPickerEnum.SpawnerPickerType.RandomGuaranteed:
+                            gameObject.AddComponent<RandomGuaranteedSpawner>();
+                            break;
+                        case SpawnerPickerEnum.SpawnerPickerType.ReverseOrder:
+                            break;
+                    } 
                 }
 
                 currentSpawner = GetComponent<ISpawner>() as Component;

@@ -3,24 +3,21 @@ using UnityEngine;
 
 namespace SemihOrhan.WaveOne.Spawners.SpawnerPickers
 {
-    [RequireComponent(typeof(PerWaveCustom))]
+    [RequireComponent(typeof(ISpawner))]
     public class RandomGuaranteedSpawner : MonoBehaviour, ISpawnerPicker
     {
-        private List<int> list;
-        List<bool> wasChosen;
+        private int size;
+        private List<bool> wasChosen;
         private int index;
 
         public void SetListSize(int size)
         {
-            list = new List<int>();
+            this.size = size;
             wasChosen = new List<bool>();
             index = 0;
 
             for (int i = 0; i < size; i++)
-            {
-                list.Add(i);
                 wasChosen.Add(false);
-            }
         }
 
         public int GetIndex()
@@ -32,7 +29,7 @@ namespace SemihOrhan.WaveOne.Spawners.SpawnerPickers
                 if (!wasChosen.Contains(false))
                     return -1;
 
-                index = Random.Range(0, list.Count);
+                index = Random.Range(0, size);
             } while (wasChosen.Contains(false) && wasChosen[index]);
 
             wasChosen[index] = true;

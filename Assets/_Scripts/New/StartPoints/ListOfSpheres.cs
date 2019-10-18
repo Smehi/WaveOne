@@ -8,22 +8,22 @@ namespace SemihOrhan.WaveOne.StartPoints
 #pragma warning disable 0649
     public class ListOfSpheres : MonoBehaviour, IStartPoint
     {
-        [SerializeField] private List<Sphere> spawnPoints = new List<Sphere>();
+        [SerializeField] private List<Sphere> startPoints = new List<Sphere>();
         [SerializeField] private bool drawGizmos = true;
 
-        private IStartPointPicker<Sphere> startPointPicker;
+        private IStartPointPicker startPointPicker;
         private Vector3 v;
 
         private void Start()
         {
-            startPointPicker = GetComponent<IStartPointPicker<Sphere>>();
-            startPointPicker.SetList(spawnPoints);
+            startPointPicker = GetComponent<IStartPointPicker>();
+            startPointPicker.SetListSize(startPoints.Count);
         }
 
         [ContextMenu("Get a point")]
         public Vector3 GetPoint()
         {
-            return GetRandomPointInSphere(startPointPicker.GetListItem());
+            return GetRandomPointInSphere(startPoints[startPointPicker.GetIndex()]);
         }
 
         private Vector3 GetRandomPointInSphere(Sphere sphere)
@@ -59,15 +59,15 @@ namespace SemihOrhan.WaveOne.StartPoints
             if (!drawGizmos)
                 return;
 
-            for (int i = 0; i < spawnPoints.Count; i++)
+            for (int i = 0; i < startPoints.Count; i++)
             {
-                Gizmos.DrawWireSphere(spawnPoints[i].position, spawnPoints[i].radius);
+                Gizmos.DrawWireSphere(startPoints[i].position, startPoints[i].radius);
             }
 
             Gizmos.color = Color.black;
-            for (int i = 0; i < spawnPoints.Count; i++)
+            for (int i = 0; i < startPoints.Count; i++)
             {
-                Gizmos.DrawSphere(spawnPoints[i].position, spawnPoints[i].minDistanceFromCenter);
+                Gizmos.DrawSphere(startPoints[i].position, startPoints[i].minDistanceFromCenter);
             }
 
             Gizmos.color = Color.red;
@@ -76,23 +76,23 @@ namespace SemihOrhan.WaveOne.StartPoints
 
         private void OnValidate()
         {
-            for (int i = 0; i < spawnPoints.Count; i++)
+            for (int i = 0; i < startPoints.Count; i++)
             {
-                if (spawnPoints[i].minDistanceFromCenter > spawnPoints[i].radius)
+                if (startPoints[i].minDistanceFromCenter > startPoints[i].radius)
                 {
-                    spawnPoints[i] = new Sphere
+                    startPoints[i] = new Sphere
                     {
-                        position = spawnPoints[i].position,
-                        radius = spawnPoints[i].radius,
-                        minDistanceFromCenter = spawnPoints[i].radius
+                        position = startPoints[i].position,
+                        radius = startPoints[i].radius,
+                        minDistanceFromCenter = startPoints[i].radius
                     };
                 }
-                else if (spawnPoints[i].minDistanceFromCenter < 0)
+                else if (startPoints[i].minDistanceFromCenter < 0)
                 {
-                    spawnPoints[i] = new Sphere
+                    startPoints[i] = new Sphere
                     {
-                        position = spawnPoints[i].position,
-                        radius = spawnPoints[i].radius,
+                        position = startPoints[i].position,
+                        radius = startPoints[i].radius,
                         minDistanceFromCenter = 0
                     };
                 }

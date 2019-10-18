@@ -8,25 +8,25 @@ namespace SemihOrhan.WaveOne.StartPoints
 #pragma warning disable 0649
     public class ListOfBoxes : MonoBehaviour, IStartPoint
     {
-        [SerializeField] private List<Box> spawnPoints = new List<Box>();
+        [SerializeField] private List<Box> startPoints = new List<Box>();
         [Tooltip("Maxing all axis will mean that the minimum distance will be applied to all axis." +
                  "This mean that the point will always choose a corner.")]
         [SerializeField] private bool setOneAxisToMinimum = true;
         [SerializeField] private bool drawGizmos = true;
 
-        private IStartPointPicker<Box> startPointPicker;
+        private IStartPointPicker startPointPicker;
         private Vector3 v;
 
         private void Start()
         {
-            startPointPicker = GetComponent<IStartPointPicker<Box>>();
-            startPointPicker.SetList(spawnPoints);
+            startPointPicker = GetComponent<IStartPointPicker>();
+            startPointPicker.SetListSize(startPoints.Count);
         }
 
         [ContextMenu("Get a point")]
         public Vector3 GetPoint()
         {
-            return GetRandomPointInBox(startPointPicker.GetListItem());
+            return GetRandomPointInBox(startPoints[startPointPicker.GetIndex()]);
         }
 
         private Vector3 GetRandomPointInBox(Box box)
@@ -116,15 +116,15 @@ namespace SemihOrhan.WaveOne.StartPoints
             if (!drawGizmos)
                 return;
 
-            for (int i = 0; i < spawnPoints.Count; i++)
+            for (int i = 0; i < startPoints.Count; i++)
             {
-                Gizmos.DrawWireCube(spawnPoints[i].position, spawnPoints[i].size);
+                Gizmos.DrawWireCube(startPoints[i].position, startPoints[i].size);
             }
 
             Gizmos.color = Color.black;
-            for (int i = 0; i < spawnPoints.Count; i++)
+            for (int i = 0; i < startPoints.Count; i++)
             {
-                Gizmos.DrawCube(spawnPoints[i].position, spawnPoints[i].minDistanceFromCenter);
+                Gizmos.DrawCube(startPoints[i].position, startPoints[i].minDistanceFromCenter);
             }
 
             Gizmos.color = Color.red;
@@ -180,44 +180,44 @@ namespace SemihOrhan.WaveOne.StartPoints
 
         private void OnValidate()
         {
-            for (int i = 0; i < spawnPoints.Count; i++)
+            for (int i = 0; i < startPoints.Count; i++)
             {
                 // If size values are smaller than 0.
-                if (spawnPoints[i].size.x < 0 ||
-                    spawnPoints[i].size.y < 0 ||
-                    spawnPoints[i].size.z < 0)
+                if (startPoints[i].size.x < 0 ||
+                    startPoints[i].size.y < 0 ||
+                    startPoints[i].size.z < 0)
                 {
-                    spawnPoints[i] = new Box
+                    startPoints[i] = new Box
                     {
-                        position = spawnPoints[i].position,
-                        size = SetMinMaxVector(spawnPoints[i].size, Vector3.zero, false),
-                        minDistanceFromCenter = spawnPoints[i].minDistanceFromCenter
+                        position = startPoints[i].position,
+                        size = SetMinMaxVector(startPoints[i].size, Vector3.zero, false),
+                        minDistanceFromCenter = startPoints[i].minDistanceFromCenter
                     };
                 }
 
                 // If minDistance values are smaller than 0.
-                if (spawnPoints[i].minDistanceFromCenter.x < 0 ||
-                    spawnPoints[i].minDistanceFromCenter.y < 0 ||
-                    spawnPoints[i].minDistanceFromCenter.z < 0)
+                if (startPoints[i].minDistanceFromCenter.x < 0 ||
+                    startPoints[i].minDistanceFromCenter.y < 0 ||
+                    startPoints[i].minDistanceFromCenter.z < 0)
                 {
-                    spawnPoints[i] = new Box
+                    startPoints[i] = new Box
                     {
-                        position = spawnPoints[i].position,
-                        size = spawnPoints[i].size,
-                        minDistanceFromCenter = SetMinMaxVector(spawnPoints[i].minDistanceFromCenter, Vector3.zero, false)
+                        position = startPoints[i].position,
+                        size = startPoints[i].size,
+                        minDistanceFromCenter = SetMinMaxVector(startPoints[i].minDistanceFromCenter, Vector3.zero, false)
                     };
                 }
 
                 // If minDistance values are bigger than the size.
-                if (spawnPoints[i].minDistanceFromCenter.x > spawnPoints[i].size.x ||
-                    spawnPoints[i].minDistanceFromCenter.y > spawnPoints[i].size.y ||
-                    spawnPoints[i].minDistanceFromCenter.z > spawnPoints[i].size.z)
+                if (startPoints[i].minDistanceFromCenter.x > startPoints[i].size.x ||
+                    startPoints[i].minDistanceFromCenter.y > startPoints[i].size.y ||
+                    startPoints[i].minDistanceFromCenter.z > startPoints[i].size.z)
                 {
-                    spawnPoints[i] = new Box
+                    startPoints[i] = new Box
                     {
-                        position = spawnPoints[i].position,
-                        size = spawnPoints[i].size,
-                        minDistanceFromCenter = SetMinMaxVector(spawnPoints[i].minDistanceFromCenter, spawnPoints[i].size, true)
+                        position = startPoints[i].position,
+                        size = startPoints[i].size,
+                        minDistanceFromCenter = SetMinMaxVector(startPoints[i].minDistanceFromCenter, startPoints[i].size, true)
                     };
                 }
             }

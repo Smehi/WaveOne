@@ -1,4 +1,6 @@
-﻿namespace SemihOrhan.WaveOne.Spawners.SpawnerPickers
+﻿using UnityEngine;
+
+namespace SemihOrhan.WaveOne.Spawners.SpawnerPickers
 {
     public static class SpawnerPickerEnum
     {
