@@ -5,6 +5,8 @@
         public enum StartPointPickerType
         {
             InOrder,
+            RandomGuaranteed,
+            Random,
             ReverseOrder
         }
     }

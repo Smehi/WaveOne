@@ -77,6 +77,12 @@ namespace SemihOrhan.WaveOne
                     case StartPointPickerEnum.StartPointPickerType.InOrder:
                         gameObject.AddComponent<InOrderStartPoint>();
                         break;
+                    case StartPointPickerEnum.StartPointPickerType.RandomGuaranteed:
+                        gameObject.AddComponent<RandomGuaranteedStartPoint>();
+                        break;
+                    case StartPointPickerEnum.StartPointPickerType.Random:
+                        gameObject.AddComponent<RandomStartPoint>();
+                        break;
                     case StartPointPickerEnum.StartPointPickerType.ReverseOrder:
                         gameObject.AddComponent<ReverseOrderStartPoint>();
                         break;
@@ -110,6 +116,7 @@ namespace SemihOrhan.WaveOne
                             gameObject.AddComponent<PerWaveCustom>();
                             break;
                         case SpawnerEnum.SpawnerType.PerWaveRandomPool:
+                            gameObject.AddComponent<PerWaveRandomPool>();
                             break;
                     }
                 }
@@ -125,6 +132,7 @@ namespace SemihOrhan.WaveOne
                             gameObject.AddComponent<RandomGuaranteedSpawner>();
                             break;
                         case SpawnerPickerEnum.SpawnerPickerType.ReverseOrder:
+                            gameObject.AddComponent<ReverseOrderSpawner>();
                             break;
                     } 
                 }
