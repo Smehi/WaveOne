@@ -3,8 +3,8 @@ using UnityEditor;
 
 namespace SemihOrhan.WaveOne.CustomEditors
 {
-    [CustomEditor(typeof(PerWaveCustom))]
-    public class PerWaveCustomEditor : Editor
+    [CustomEditor(typeof(PerWaveRandomPool))]
+    public class PerWaveRandomPoolEditor : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -24,8 +24,8 @@ namespace SemihOrhan.WaveOne.CustomEditors
             SerializedProperty eventDeployedEnemies = so.FindProperty("eventDeployedEnemies");
             SerializedProperty eventAliveEnemies = so.FindProperty("eventAliveEnemies");
 
-            EditorGUILayout.PropertyField(showWaveListControls);
-            EditorGUILayout.PropertyField(showEnemiesListControls);
+            EditorGUILayout.PropertyField(showWaveListControls, true);
+            EditorGUILayout.PropertyField(showEnemiesListControls, true);
 
             // List<SingleWave>
             EditorGUILayout.PropertyField(enemyWaves);
@@ -44,6 +44,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
                     EditorGUILayout.EndHorizontal();
 
                     SerializedProperty enemies = enemyWaves.GetArrayElementAtIndex(i).FindPropertyRelative("enemies");
+                    SerializedProperty poolSize = enemyWaves.GetArrayElementAtIndex(i).FindPropertyRelative("poolSize");
                     SerializedProperty deployments = enemyWaves.GetArrayElementAtIndex(i).FindPropertyRelative("deployments");
 
                     // SingleWave List<EnemyCount>
@@ -67,7 +68,6 @@ namespace SemihOrhan.WaveOne.CustomEditors
                                 EditorGUILayout.EndHorizontal();
 
                                 SerializedProperty gameObject = enemies.GetArrayElementAtIndex(j).FindPropertyRelative("gameObject");
-                                SerializedProperty amount = enemies.GetArrayElementAtIndex(j).FindPropertyRelative("amount");
                                 SerializedProperty groupSize = enemies.GetArrayElementAtIndex(j).FindPropertyRelative("groupSize");
 
                                 // EnemyCount values
@@ -75,7 +75,6 @@ namespace SemihOrhan.WaveOne.CustomEditors
                                 if (enemies.GetArrayElementAtIndex(j).isExpanded)
                                 {
                                     EditorGUILayout.PropertyField(gameObject);
-                                    EditorGUILayout.PropertyField(amount);
                                     EditorGUILayout.PropertyField(groupSize);
                                 }
                                 EditorGUI.indentLevel--;
@@ -83,7 +82,8 @@ namespace SemihOrhan.WaveOne.CustomEditors
                         }
                         EditorGUI.indentLevel--;
 
-                        // SingleWave deployments
+                        // SingleWave poolSize and deployments
+                        EditorGUILayout.PropertyField(poolSize);
                         EditorGUILayout.PropertyField(deployments);
                     }
                     EditorGUI.indentLevel--;
@@ -92,17 +92,18 @@ namespace SemihOrhan.WaveOne.CustomEditors
             EditorGUI.indentLevel--;
 
             EditorGUILayout.Space();
-            EditorGUILayout.PropertyField(minTimeForNextDeployment, true);
-            EditorGUILayout.PropertyField(maxTimeForNextDeployment, true);
-            EditorGUILayout.PropertyField(spawnRate, true);
-            EditorGUILayout.PropertyField(autoDeploy, true);
-            EditorGUILayout.PropertyField(enemyParentObject, true);
-            EditorGUILayout.PropertyField(eventWaveInProgress, true);
-            EditorGUILayout.PropertyField(eventTotalEnemies, true);
-            EditorGUILayout.PropertyField(eventDeployedEnemies, true);
-            EditorGUILayout.PropertyField(eventAliveEnemies, true);
+            EditorGUILayout.PropertyField(minTimeForNextDeployment);
+            EditorGUILayout.PropertyField(maxTimeForNextDeployment);
+            EditorGUILayout.PropertyField(spawnRate);
+            EditorGUILayout.PropertyField(autoDeploy);
+            EditorGUILayout.PropertyField(enemyParentObject);
+            EditorGUILayout.PropertyField(eventWaveInProgress);
+            EditorGUILayout.PropertyField(eventTotalEnemies);
+            EditorGUILayout.PropertyField(eventDeployedEnemies);
+            EditorGUILayout.PropertyField(eventAliveEnemies);
 
             so.ApplyModifiedProperties();
         }
     }
+
 }

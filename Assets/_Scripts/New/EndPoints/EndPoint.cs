@@ -6,6 +6,14 @@ namespace SemihOrhan.WaveOne.EndPoints
 #pragma warning disable 0649
     public class EndPoint : MonoBehaviour
     {
+#pragma warning disable 0414
+        [Header("Editor controls")]
+        [SerializeField] private bool showEndPointsListControls = true;
+        [SerializeField] private bool showEnemiesListControls = true;
+        [SerializeField] private bool showNoEndPointEnemiesListControls = true;
+#pragma warning restore 0414
+
+        [Header("End point settings")]
         [SerializeField] private List<SinglePoint> endPoints = new List<SinglePoint>();
         [SerializeField] private bool addColliders;
         [SerializeField] private bool triggerColliders;

@@ -183,6 +183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebc4c8385cfb684897b9e6369b8f7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showEndPointsListControls: 0
+  showEnemiesListControls: 0
+  showNoEndPointEnemiesListControls: 0
   endPoints:
   - name: End point 1
     endPoint: {fileID: 881046409}
@@ -408,6 +411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebc4c8385cfb684897b9e6369b8f7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showEndPointsListControls: 1
+  showEnemiesListControls: 1
+  showNoEndPointEnemiesListControls: 1
   endPoints:
   - name: End point 1
     endPoint: {fileID: 27718832}
@@ -459,8 +465,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3fe86d6e8cd79b4e9dd4f40a5b1f1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showWaveListControls: 0
-  showEnemiesListControls: 0
+  showWaveListControls: 1
+  showEnemiesListControls: 1
   enemyWaves:
   - name: Wave 1
     enemies:

@@ -1,7 +1,6 @@
-﻿using UnityEditor;
+﻿using SemihOrhan.WaveOne.Spawners;
+using UnityEditor;
 using UnityEngine;
-using SemihOrhan.WaveOne.Spawners;
-using SemihOrhan.WaveOne.Spawners.SpawnerPickers;
 
 namespace SemihOrhan.WaveOne.CustomEditors
 {
