@@ -61,7 +61,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
                                 // EndPoint List<GameObject> list element
                                 EditorGUILayout.BeginHorizontal();
                                 EditorGUILayout.PropertyField(enemies.GetArrayElementAtIndex(j), new GUIContent("Enemy " + (j + 1)));
-                                if (showEnemiesListControls.boolValue && EditorButtons.ShowElementButtons(enemies, i))
+                                if (showEnemiesListControls.boolValue && EditorButtons.ShowElementButtons(enemies, j))
                                     continue;
                                 EditorGUILayout.EndHorizontal();
                             }

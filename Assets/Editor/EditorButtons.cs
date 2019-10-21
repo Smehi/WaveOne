@@ -19,14 +19,6 @@ namespace SemihOrhan.WaveOne.CustomEditors
                 list.arraySize++;
         }
 
-        public static bool ShowElementButtons(SerializedProperty list)
-        {
-            if (GUILayout.Button(removeButtonContent, EditorStyles.miniButton, miniButtonWidth))
-            { list.arraySize = 0; return true; }
-
-            return false;
-        }
-
         public static bool ShowElementButtons(SerializedProperty list, int index)
         {
             if (GUILayout.Button(duplicateButtonContent, EditorStyles.miniButtonLeft, miniButtonWidth))
