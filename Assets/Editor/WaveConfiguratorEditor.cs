@@ -25,6 +25,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
 
             EditorGUILayout.PropertyField(spawnerType, true);
             needSpawnerPicker.boolValue = false;
+            // We only want to show the spawnerPickerType when we have one of these spawners selected.
             if (spawnerType.enumValueIndex == (int)SpawnerEnum.SpawnerType.PerWaveCustom)
             {
                 needSpawnerPicker.boolValue = true;

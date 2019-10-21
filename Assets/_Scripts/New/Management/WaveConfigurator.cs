@@ -118,6 +118,9 @@ namespace SemihOrhan.WaveOne
                         case SpawnerEnum.SpawnerType.PerWaveRandomPool:
                             gameObject.AddComponent<PerWaveRandomPool>();
                             break;
+                        case SpawnerEnum.SpawnerType.TimedSpawner:
+                            gameObject.AddComponent<TimedSpawner>();
+                            break;
                     }
                 }
 

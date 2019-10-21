@@ -17,7 +17,7 @@ namespace SemihOrhan.WaveOne.Spawners
         [SerializeField] private bool showEnemiesListControls = true;
 #pragma warning restore 0414
 
-        [Header("Waves")]
+        [Header("Wave settings")]
         [SerializeField] private List<SingleWave> enemyWaves = new List<SingleWave>();
         [SerializeField] private float minTimeForNextDeployment;
         [SerializeField] private float maxTimeForNextDeployment;

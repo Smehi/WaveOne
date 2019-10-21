@@ -5,7 +5,8 @@
         public enum SpawnerType
         {
             PerWaveCustom,
-            PerWaveRandomPool
+            PerWaveRandomPool,
+            TimedSpawner
         }
     }
 }
