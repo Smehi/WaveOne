@@ -56,6 +56,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
             EditorGUI.indentLevel--;
 
             EditorGUILayout.Space();
+            EditorGUILayout.PropertyField(maxTime);
             EditorGUILayout.PropertyField(spawnRate);
             EditorGUILayout.PropertyField(enemyParentObject);
             EditorGUILayout.PropertyField(eventSpawnerFinished);

@@ -143,10 +143,10 @@ namespace SemihOrhan.WaveOne.Spawners
                 yield return new WaitForSeconds(spawnRate);
             }
 
+            waveInProgress = false;
+
             if (eventSpawnerFinished != null)
-            {
                 eventSpawnerFinished.Raise(true);
-            }
         }
 
         public void SetEndPoint(GameObject prefabGameObject, GameObject instanciatedGameObject, int presetIndex)

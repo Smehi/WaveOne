@@ -14,6 +14,7 @@ namespace SemihOrhan.WaveOne
 
         public List<WaveConfigurator> WaveConfigurators { get => waveConfigurators; }
 
+        public bool SpawnersStarted { get; private set; }
         public int AmountSpawnersFinished { get; private set; }
         public bool SpawnersFinished { get; private set; }
 
@@ -31,6 +32,7 @@ namespace SemihOrhan.WaveOne
 
         public void StartAllConfigWaves()
         {
+            SpawnersStarted = true;
             AmountSpawnersFinished = 0;
             SpawnersFinished = false;
 
@@ -42,7 +44,7 @@ namespace SemihOrhan.WaveOne
 
         public void SpawnerFinished(bool val)
         {
-            if (val)
+            if (val && SpawnersStarted)
             {
                 for (int i = 0; i < waveConfigurators.Count; i++)
                 {
