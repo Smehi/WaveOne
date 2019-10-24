@@ -6,5 +6,6 @@ namespace SemihOrhan.WaveOne.Spawners
     {
         void StartWave();
         void SetEndPoint(GameObject prefabGameObject, GameObject instanciatedGameObject, int presetIndex);
+        bool IsSpawnerDone();
     }
 }

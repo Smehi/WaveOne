@@ -265,8 +265,7 @@ MonoBehaviour:
   spawnRate: 1
   autoDeploy: 1
   enemyParentObject: 
-  eventWaveInProgress: {fileID: 11400000, guid: c812d20b498eb1d47b020535c2f5d55e,
-    type: 2}
+  eventSpawnerFinished: {fileID: 0}
   eventTotalEnemies: {fileID: 11400000, guid: c9abb2f719a463842b054928badb6ef1, type: 2}
   eventDeployedEnemies: {fileID: 11400000, guid: b79c39ddf78a32d4cb30a91e6ddc03fd,
     type: 2}
@@ -458,7 +457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &320717004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,7 +563,7 @@ MonoBehaviour:
   spawnRate: 3
   autoDeploy: 1
   enemyParentObject: 
-  eventWaveInProgress: {fileID: 11400000, guid: c812d20b498eb1d47b020535c2f5d55e,
+  eventSpawnerFinished: {fileID: 11400000, guid: c812d20b498eb1d47b020535c2f5d55e,
     type: 2}
   eventTotalEnemies: {fileID: 11400000, guid: c9abb2f719a463842b054928badb6ef1, type: 2}
   eventDeployedEnemies: {fileID: 11400000, guid: b79c39ddf78a32d4cb30a91e6ddc03fd,
@@ -724,7 +723,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &460866873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,8 +768,7 @@ MonoBehaviour:
   maxTime: 0
   spawnRate: 1
   enemyParentObject: 
-  eventWaveInProgress: {fileID: 11400000, guid: c812d20b498eb1d47b020535c2f5d55e,
-    type: 2}
+  eventSpawnerFinished: {fileID: 0}
   eventDeployedEnemies: {fileID: 11400000, guid: b79c39ddf78a32d4cb30a91e6ddc03fd,
     type: 2}
   eventAliveEnemies: {fileID: 11400000, guid: 4729eab659c313a4bb41763a631f42b3, type: 2}
@@ -1090,7 +1088,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Alive Enemies: 0'
+  m_Text: 'Alive Enemies: ?'
 --- !u!222 &561829861
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1497,7 +1495,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Deployed Enemies: 0'
+  m_Text: 'Deployed Enemies: ?'
 --- !u!222 &760008912
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1639,7 +1637,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Total Enemies: 0'
+  m_Text: 'Total Enemies: ?'
 --- !u!222 &957650631
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2053,8 +2051,6 @@ GameObject:
   - component: {fileID: 1124418283}
   - component: {fileID: 1124418282}
   - component: {fileID: 1124418281}
-  - component: {fileID: 1124418280}
-  - component: {fileID: 1124418279}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2082,47 +2078,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 25}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &1124418279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124418277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97114a0777e17cb4f82ad8c60bb16449, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: c812d20b498eb1d47b020535c2f5d55e, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1124418280}
-        m_MethodName: SetButtonInteractable
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: SemihOrhan.WaveOne.Events.UnityBoolEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
---- !u!114 &1124418280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124418277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3d6c0b08f2758a46ac5b2893e47f854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1124418281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2316,6 +2271,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1173506664}
   - component: {fileID: 1173506663}
+  - component: {fileID: 1173506667}
+  - component: {fileID: 1173506666}
+  - component: {fileID: 1173506665}
   m_Layer: 0
   m_Name: Wave Manager
   m_TagString: Untagged
@@ -2335,6 +2293,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0394638f0f3ec8e4aaf150ab04cc8e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoFindConfigs: 1
+  showListControls: 1
   waveConfigurators: []
 --- !u!4 &1173506664
 Transform:
@@ -2350,6 +2310,88 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1173506665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173506662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4a806ef0e3690408f083719b41df9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 4729eab659c313a4bb41763a631f42b3, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1173506667}
+        m_MethodName: CheckEnemyCount
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: SemihOrhan.WaveOne.Events.UnityIntEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1173506666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173506662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97114a0777e17cb4f82ad8c60bb16449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: c812d20b498eb1d47b020535c2f5d55e, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1173506663}
+        m_MethodName: SpawnerFinished
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1173506667}
+        m_MethodName: SetButtonInteractable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: SemihOrhan.WaveOne.Events.UnityBoolEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1173506667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173506662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d6c0b08f2758a46ac5b2893e47f854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1124418281}
 --- !u!1 &1178583905
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ namespace SemihOrhan.WaveOne.Spawners
         [Tooltip("Name of the parent GameObject to spawn enemies in. To indicate a child of another object use a \"/\"." +
                  "Keep empty if you don't want to spawn in another GameObject.")]
         [SerializeField] private string enemyParentObject;
-        [SerializeField] private BoolEvent eventWaveInProgress;
+        [SerializeField] private BoolEvent eventSpawnerFinished;
         [SerializeField] private IntEvent eventTotalEnemies;
         [SerializeField] private IntEvent eventDeployedEnemies;
         [SerializeField] private IntEvent eventAliveEnemies;
@@ -44,6 +44,7 @@ namespace SemihOrhan.WaveOne.Spawners
         private WaveConfigurator waveConfig;
         private EndPoint endPoints;
         private ISpawnerPicker spawnerPicker;
+        private IEnumerator currentIEnumerator;
 
         private void Start()
         {
@@ -77,14 +78,17 @@ namespace SemihOrhan.WaveOne.Spawners
             spawnerPicker = GetComponent<ISpawnerPicker>();
         }
 
-        [ContextMenu("Start wave")]
         public void StartWave()
         {
-            StartCoroutine(DeployTroops(currentWave));
+            if (currentIEnumerator != null)
+                StopCoroutine(currentIEnumerator);
 
-            if (eventWaveInProgress != null && !waveInProgress)
+            currentIEnumerator = DeployTroops(currentWave);
+            StartCoroutine(currentIEnumerator);
+
+            if (eventSpawnerFinished != null && !waveInProgress)
             {
-                eventWaveInProgress.Raise(true);
+                eventSpawnerFinished.Raise(false);
                 waveInProgress = true;
             }
         }
@@ -210,8 +214,8 @@ namespace SemihOrhan.WaveOne.Spawners
                 currentDeployment = 1;
                 waveInProgress = false;
 
-                if (currentWave != enemyWaves.Count - 1 && eventWaveInProgress != null)
-                    eventWaveInProgress.Raise(false);
+                if (eventSpawnerFinished != null)
+                    eventSpawnerFinished.Raise(true);
             }
             else
             {
@@ -220,7 +224,7 @@ namespace SemihOrhan.WaveOne.Spawners
                 if (autoDeploy)
                 {
                     float randomTime = Random.Range(minTimeForNextDeployment, maxTimeForNextDeployment);
-                    Invoke("StartWave", randomTime); 
+                    Invoke("StartWave", randomTime);
                 }
             }
         }
@@ -233,6 +237,14 @@ namespace SemihOrhan.WaveOne.Spawners
 
             if (result != null)
                 sad.CalculateValidPath(result, presetIndex);
+        }
+
+        public bool IsSpawnerDone()
+        {
+            if (waveInProgress)
+                return false;
+
+            return true;
         }
 
         #region Custom object structs

@@ -19,7 +19,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
             SerializedProperty spawnRate = so.FindProperty("spawnRate");
             SerializedProperty autoDeploy = so.FindProperty("autoDeploy");
             SerializedProperty enemyParentObject = so.FindProperty("enemyParentObject");
-            SerializedProperty eventWaveInProgress = so.FindProperty("eventWaveInProgress");
+            SerializedProperty eventSpawnerFinished = so.FindProperty("eventSpawnerFinished");
             SerializedProperty eventTotalEnemies = so.FindProperty("eventTotalEnemies");
             SerializedProperty eventDeployedEnemies = so.FindProperty("eventDeployedEnemies");
             SerializedProperty eventAliveEnemies = so.FindProperty("eventAliveEnemies");
@@ -97,7 +97,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
             EditorGUILayout.PropertyField(spawnRate, true);
             EditorGUILayout.PropertyField(autoDeploy, true);
             EditorGUILayout.PropertyField(enemyParentObject, true);
-            EditorGUILayout.PropertyField(eventWaveInProgress, true);
+            EditorGUILayout.PropertyField(eventSpawnerFinished, true);
             EditorGUILayout.PropertyField(eventTotalEnemies, true);
             EditorGUILayout.PropertyField(eventDeployedEnemies, true);
             EditorGUILayout.PropertyField(eventAliveEnemies, true);

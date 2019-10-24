@@ -3,18 +3,33 @@ using UnityEngine.UI;
 
 namespace SemihOrhan.WaveOne.Demo
 {
+#pragma warning disable 0649
     public class DisableButtonInWaves : MonoBehaviour
     {
-        private Button button;
+        [SerializeField] private Button button;
+
+        private WaveManager waveManager;
+        int enemyCount;
 
         private void Start()
         {
-            button = GetComponent<Button>();
+            waveManager = GetComponent<WaveManager>();
         }
 
-        public void SetButtonInteractable(bool state)
+        public void SetButtonInteractable(bool val)
         {
-            button.interactable = !state;
+            if (!val && !waveManager.SpawnersFinished)
+                button.interactable = false;
         }
-    } 
+
+        public void CheckEnemyCount(int val)
+        {
+            enemyCount += val;
+
+            if (enemyCount == 0 && waveManager.SpawnersFinished)
+            {
+                button.interactable = true;
+            }
+        }
+    }
 }

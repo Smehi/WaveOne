@@ -19,7 +19,6 @@ namespace SemihOrhan.WaveOne.StartPoints
             startPointPicker.SetListSize(startPoints.Count);
         }
 
-        [ContextMenu("Get a point")]
         public Vector3 GetPoint()
         {
             return v = startPoints[startPointPicker.GetIndex()].position;
