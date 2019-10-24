@@ -10,6 +10,11 @@ namespace SemihOrhan.WaveOne.Spawners
 #pragma warning disable 0649
     public class TimedSpawner : MonoBehaviour, ISpawner
     {
+#pragma warning disable 0414
+        [Header("Editor controls")]
+        [SerializeField] private bool showEnemiesListControls = true;
+#pragma warning restore 0414
+
         [Header("Spawner settings")]
         [SerializeField] private List<EnemyWithWeight> enemyList = new List<EnemyWithWeight>();
         [Tooltip("Length in seconds, leave 0 if endless")]
