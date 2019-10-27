@@ -30,7 +30,7 @@ namespace SemihOrhan.WaveOne
             }
         }
 
-        public void StartAllConfigWaves()
+        public void StartAllConfigWaves(int wave = -1)
         {
             SpawnersStarted = true;
             AmountSpawnersFinished = 0;
@@ -38,6 +38,11 @@ namespace SemihOrhan.WaveOne
 
             for (int i = 0; i < waveConfigurators.Count; i++)
             {
+                if (wave != -1)
+                {
+                    waveConfigurators[i].SpawnerScript.StartWave(wave);
+                    continue;
+                }
                 waveConfigurators[i].SpawnerScript.StartWave();
             }
         }
