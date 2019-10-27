@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SemihOrhan.WaveOne.Util
+namespace SemihOrhan.WaveOne.Formations
 {
-    public class SquareGroupFormation
+    public class SquareGroupFormation : MonoBehaviour, IFormation
     {
         /// <summary>
         /// Makes a square formation around the vector (0, 0, 0), favoring width over depth.
@@ -11,7 +11,7 @@ namespace SemihOrhan.WaveOne.Util
         /// <param name="obj">The GameObject that is being spawned.</param>
         /// <param name="groupSize">The size of the group.</param>
         /// <returns>Returns an array of positions that is made from the parameters given.</returns>
-        public static List<Vector3> MakeFormation(GameObject obj, int groupSize)
+        public List<Vector3> MakeFormation(GameObject obj, int groupSize)
         {
             List<Vector3> positions = new List<Vector3>();
 

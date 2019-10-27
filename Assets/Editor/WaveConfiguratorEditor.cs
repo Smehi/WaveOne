@@ -19,6 +19,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
             SerializedProperty spawnerPickerType = so.FindProperty("spawnerPickerType");
             SerializedProperty needSpawnerPicker = so.FindProperty("needSpawnerPicker");
             SerializedProperty endPointsType = so.FindProperty("endPointsType");
+            SerializedProperty formationType = so.FindProperty("formationType");
 
             EditorGUILayout.PropertyField(startPointType, true);
             EditorGUILayout.PropertyField(startPointPickerType, true);
@@ -33,6 +34,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
             }
 
             EditorGUILayout.PropertyField(endPointsType, true);
+            EditorGUILayout.PropertyField(formationType, true);
 
             // If we do this after the buttons shit hits the fan.
             so.ApplyModifiedProperties();
@@ -43,6 +45,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
                 waveConfig.AddStartPointComponents();
                 waveConfig.AddSpawnerComponents();
                 waveConfig.AddEndPointComponents();
+                waveConfig.AddFormationComponents();
             }
 
             GUI.backgroundColor = Color.red;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SemihOrhan.WaveOne.EndPoints;
 using SemihOrhan.WaveOne.Events;
-using SemihOrhan.WaveOne.Util;
+using SemihOrhan.WaveOne.Formations;
 using UnityEngine;
 
 namespace SemihOrhan.WaveOne.Spawners
@@ -130,8 +130,8 @@ namespace SemihOrhan.WaveOne.Spawners
                     // then we apply the relative position at the end.
                     if (!gotRelativeGroupPositions)
                     {
-                        relativeGroupPositions = SquareGroupFormation.MakeFormation(instance,
-                                                                                    spawnAmount);
+                        relativeGroupPositions = waveConfig.FormationScript.MakeFormation(instance,
+                                                                                          spawnAmount);
                         gotRelativeGroupPositions = true;
                     }
 
