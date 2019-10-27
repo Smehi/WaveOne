@@ -24,6 +24,9 @@ namespace SemihOrhan.WaveOne.EndPoints
 
         private Dictionary<GameObject, List<Transform>> enemyEndPointsPairs = new Dictionary<GameObject, List<Transform>>();
 
+        public List<SinglePoint> EndPoints { get => endPoints; set => endPoints = value; }
+        public List<GameObject> NoEndPointEnemies { get => noEndPointEnemies; set => noEndPointEnemies = value; }
+
         private void Awake()
         {
             if (addColliders)

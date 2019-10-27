@@ -13,6 +13,8 @@ namespace SemihOrhan.WaveOne.StartPoints
         private IStartPointPicker startPointPicker;
         private Vector3 v;
 
+        public List<Transform> StartPoints { get => startPoints; set => startPoints = value; }
+
         private void Start()
         {
             startPointPicker = GetComponent<IStartPointPicker>();
