@@ -37,19 +37,26 @@ namespace SemihOrhan.WaveOne.Spawners
 
         private int currentWave; // 0 indexed.
         private int currentDeployment; // 1 indexed.
-        private Transform parent;
-        private bool setEndPoints;
         private bool waveInProgress;
 
         private WaveConfigurator waveConfig;
         private EndPoint endPoints;
         private IEnumerator currentIEnumerator;
+        private List<bool> waveCompletion;
+
+        public List<SingleWave> EnemyWaves { get => enemyWaves; set => enemyWaves = value; }
+        public float MinTimeForNextDeployment { get => minTimeForNextDeployment; set => minTimeForNextDeployment = value; }
+        public float MaxTimeForNextDeployment { get => maxTimeForNextDeployment; set => maxTimeForNextDeployment = value; }
+        public float SpawnRate { get => spawnRate; set => spawnRate = value; }
+        public bool AutoDeploy { get => autoDeploy; set => autoDeploy = value; }
+        public Transform Parent { get; set; }
+        public bool SetEndPoints { get; set; }
 
         private void Start()
         {
             // Cache the parent GameObject.
             GameObject go = GameObject.Find(enemyParentObject);
-            parent = go != null ? go.transform : null;
+            Parent = go != null ? go.transform : null;
 
             // Cache the spawnRate
             spawnRate = 1 / spawnRate;
@@ -57,11 +64,14 @@ namespace SemihOrhan.WaveOne.Spawners
             currentWave = 0;
             currentDeployment = 1;
 
+            for (int i = 0; i < enemyWaves.Count; i++)
+                waveCompletion.Add(false);
+
             endPoints = GetComponent<EndPoint>();
 
             if (endPoints)
             {
-                setEndPoints = true;
+                SetEndPoints = true;
 
                 for (int i = 0; i < enemyWaves.Count; i++)
                 {
@@ -89,6 +99,11 @@ namespace SemihOrhan.WaveOne.Spawners
                 eventSpawnerFinished.Raise(false);
                 waveInProgress = true;
             }
+        }
+
+        public void StartWave(int wave)
+        {
+
         }
 
         private IEnumerator DeployTroops(int currentWave)
@@ -127,11 +142,11 @@ namespace SemihOrhan.WaveOne.Spawners
                 for (int i = 0; i < spawnAmount; i++)
                 {
                     GameObject instance;
-                    if (parent)
+                    if (Parent)
                         instance = Instantiate(enemyWaves[currentWave].enemies[enemyIndex].gameObject,
                                                spawnPointPos,
                                                Quaternion.identity,
-                                               parent);
+                                               Parent);
                     else
                         instance = Instantiate(enemyWaves[currentWave].enemies[enemyIndex].gameObject,
                                                spawnPointPos,
@@ -158,7 +173,7 @@ namespace SemihOrhan.WaveOne.Spawners
 
                     deployedCount++;
 
-                    if (setEndPoints)
+                    if (SetEndPoints)
                     {
                         SetEndPoint(enemyWaves[currentWave].enemies[enemyIndex].gameObject,
                                     instance,
@@ -175,6 +190,7 @@ namespace SemihOrhan.WaveOne.Spawners
                 this.currentWave++;
                 currentDeployment = 1;
                 waveInProgress = false;
+                waveCompletion[currentWave] = true;
 
                 if (eventSpawnerFinished != null)
                     eventSpawnerFinished.Raise(true);
@@ -186,7 +202,7 @@ namespace SemihOrhan.WaveOne.Spawners
                 if (autoDeploy)
                 {
                     float randomTime = Random.Range(minTimeForNextDeployment, maxTimeForNextDeployment);
-                    Invoke("StartWave", randomTime); 
+                    Invoke("StartWave", randomTime);
                 }
             }
         }
@@ -207,6 +223,11 @@ namespace SemihOrhan.WaveOne.Spawners
                 return false;
 
             return true;
+        }
+
+        public bool IsWaveCompleted(int wave)
+        {
+            return waveCompletion[wave];
         }
 
         #region Custom object structs

@@ -30,7 +30,6 @@ namespace SemihOrhan.WaveOne.Spawners
         [SerializeField] private IntEvent eventDeployedEnemies;
         [SerializeField] private IntEvent eventAliveEnemies;
 
-        private Transform parent;
         private bool setEndPoints;
         private bool waveInProgress;
         private bool isEndless;
@@ -39,11 +38,16 @@ namespace SemihOrhan.WaveOne.Spawners
         private EndPoint endPoints;
         private IEnumerator currentIEnumerator;
 
+        public List<EnemyWithWeight> EnemyList { get => enemyList; set => enemyList = value; }
+        public float MaxTime { get => maxTime; set => maxTime = value; }
+        public float SpawnRate { get => spawnRate; set => spawnRate = value; }
+        public Transform Parent { get; set; }
+
         private void Start()
         {
             // Cache the parent GameObject.
             GameObject go = GameObject.Find(enemyParentObject);
-            parent = go != null ? go.transform : null;
+            Parent = go != null ? go.transform : null;
 
             // Cache the spawnRate
             spawnRate = 1 / spawnRate;
@@ -79,6 +83,13 @@ namespace SemihOrhan.WaveOne.Spawners
             }
         }
 
+        // No waves in timed spawner but we still need to start the wave.
+        public void StartWave(int wave)
+        {
+            if (!waveInProgress)
+                StartWave();
+        }
+
         private void Update()
         {
             if (!isEndless && waveInProgress && maxTime > 0)
@@ -103,11 +114,11 @@ namespace SemihOrhan.WaveOne.Spawners
                 for (int i = 0; i < spawnAmount; i++)
                 {
                     GameObject instance;
-                    if (parent)
+                    if (Parent)
                         instance = Instantiate(enemyList[enemyIndex].gameObject,
                                                spawnPointPos,
                                                Quaternion.identity,
-                                               parent);
+                                               Parent);
                     else
                         instance = Instantiate(enemyList[enemyIndex].gameObject,
                                                spawnPointPos,
@@ -167,6 +178,12 @@ namespace SemihOrhan.WaveOne.Spawners
             return true;
         }
 
+        public bool IsWaveCompleted(int wave)
+        {
+            return IsSpawnerDone();
+        }
+
+        // Getting a random enemy using the weights that were given.
         private int GetEnemyIndex()
         {
             int index = -1;
