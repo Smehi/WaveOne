@@ -41,7 +41,7 @@ namespace SemihOrhan.WaveOne.Spawners
         private WaveConfigurator waveConfig;
         private EndPoint endPoints;
         private IEnumerator currentIEnumerator;
-        private List<bool> waveCompletion;
+        private List<bool> waveCompletion = new List<bool>();
 
         public List<SingleWave> EnemyWaves { get => enemyWaves; set => enemyWaves = value; }
         public float MinTimeForNextDeployment { get => minTimeForNextDeployment; set => minTimeForNextDeployment = value; }

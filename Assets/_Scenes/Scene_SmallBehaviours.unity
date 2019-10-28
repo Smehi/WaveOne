@@ -316,16 +316,19 @@ MonoBehaviour:
   spawnerType: 1
   spawnerPickerType: 1
   endPointsType: 1
+  formationType: 0
   prevStartPointType: 0
   prevStartPointPickerType: 2
   prevSpawnerType: 1
   prevSpawnerPickerType: 1
   prevEndPointsType: 1
+  prevFormationType: 0
   currentStartPoint: {fileID: 77086414}
   currentStartPointPicker: {fileID: 77086412}
   currentSpawner: {fileID: 77086411}
   currentSpawnerPicker: {fileID: 0}
   currentEndPoint: {fileID: 77086410}
+  currentFormation: {fileID: 0}
   needSpawnerPicker: 0
 --- !u!4 &77086416
 Transform:
@@ -451,6 +454,7 @@ GameObject:
   - component: {fileID: 320717006}
   - component: {fileID: 320717005}
   - component: {fileID: 320717004}
+  - component: {fileID: 320717011}
   m_Layer: 0
   m_Name: Wave Configurator [PerWaveCustom]
   m_TagString: Untagged
@@ -615,16 +619,19 @@ MonoBehaviour:
   spawnerType: 0
   spawnerPickerType: 1
   endPointsType: 1
+  formationType: 0
   prevStartPointType: 0
   prevStartPointPickerType: 0
   prevSpawnerType: 0
   prevSpawnerPickerType: 1
   prevEndPointsType: 1
+  prevFormationType: 0
   currentStartPoint: {fileID: 320717008}
   currentStartPointPicker: {fileID: 320717007}
   currentSpawner: {fileID: 320717006}
   currentSpawnerPicker: {fileID: 320717005}
   currentEndPoint: {fileID: 320717004}
+  currentFormation: {fileID: 320717011}
   needSpawnerPicker: 1
 --- !u!4 &320717010
 Transform:
@@ -642,6 +649,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &320717011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320717003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035ecaa687f5859418d81fb850e55ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &347013861
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,16 +837,19 @@ MonoBehaviour:
   spawnerType: 2
   spawnerPickerType: 1
   endPointsType: 1
+  formationType: 0
   prevStartPointType: 0
   prevStartPointPickerType: 2
   prevSpawnerType: 2
   prevSpawnerPickerType: 1
   prevEndPointsType: 1
+  prevFormationType: 0
   currentStartPoint: {fileID: 460866876}
   currentStartPointPicker: {fileID: 460866875}
   currentSpawner: {fileID: 460866874}
   currentSpawnerPicker: {fileID: 460866873}
   currentEndPoint: {fileID: 460866879}
+  currentFormation: {fileID: 0}
   needSpawnerPicker: 0
 --- !u!4 &460866878
 Transform:
@@ -2123,11 +2145,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1173506663}
         m_MethodName: StartAllConfigWaves
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2273,7 +2295,6 @@ GameObject:
   - component: {fileID: 1173506663}
   - component: {fileID: 1173506667}
   - component: {fileID: 1173506666}
-  - component: {fileID: 1173506665}
   m_Layer: 0
   m_Name: Wave Manager
   m_TagString: Untagged
@@ -2310,35 +2331,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1173506665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173506662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4a806ef0e3690408f083719b41df9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 4729eab659c313a4bb41763a631f42b3, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1173506667}
-        m_MethodName: CheckEnemyCount
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: SemihOrhan.WaveOne.Events.UnityIntEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1173506666
 MonoBehaviour:
   m_ObjectHideFlags: 0
