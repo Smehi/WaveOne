@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using SemihOrhan.WaveOne.EndPoints;
 using SemihOrhan.WaveOne.Events;
-using SemihOrhan.WaveOne.Formations;
 using UnityEngine;
 
 namespace SemihOrhan.WaveOne.Spawners
