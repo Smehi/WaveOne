@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 77086412}
   - component: {fileID: 77086411}
   - component: {fileID: 77086410}
+  - component: {fileID: 77086413}
   m_Layer: 0
   m_Name: Wave Configurator [PerWaveRandomPool]
   m_TagString: Untagged
@@ -265,7 +266,8 @@ MonoBehaviour:
   spawnRate: 1
   autoDeploy: 1
   enemyParentObject: 
-  eventSpawnerFinished: {fileID: 0}
+  eventSpawnerFinished: {fileID: 11400000, guid: c812d20b498eb1d47b020535c2f5d55e,
+    type: 2}
   eventTotalEnemies: {fileID: 11400000, guid: c9abb2f719a463842b054928badb6ef1, type: 2}
   eventDeployedEnemies: {fileID: 11400000, guid: b79c39ddf78a32d4cb30a91e6ddc03fd,
     type: 2}
@@ -280,6 +282,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 256829994bd6da54dbdfec3e759acbf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &77086413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77086409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035ecaa687f5859418d81fb850e55ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &77086414
@@ -328,7 +342,7 @@ MonoBehaviour:
   currentSpawner: {fileID: 77086411}
   currentSpawnerPicker: {fileID: 0}
   currentEndPoint: {fileID: 77086410}
-  currentFormation: {fileID: 0}
+  currentFormation: {fileID: 77086413}
   needSpawnerPicker: 0
 --- !u!4 &77086416
 Transform:
@@ -461,7 +475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &320717004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,13 +750,14 @@ GameObject:
   - component: {fileID: 460866874}
   - component: {fileID: 460866873}
   - component: {fileID: 460866879}
+  - component: {fileID: 460866880}
   m_Layer: 0
   m_Name: Wave Configurator [TimedSpawner]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &460866873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,10 +799,11 @@ MonoBehaviour:
       type: 3}
     groupSize: 7
     weight: 1
-  maxTime: 0
-  spawnRate: 1
+  maxTime: 15
+  spawnRate: 2
   enemyParentObject: 
-  eventSpawnerFinished: {fileID: 0}
+  eventSpawnerFinished: {fileID: 11400000, guid: c812d20b498eb1d47b020535c2f5d55e,
+    type: 2}
   eventDeployedEnemies: {fileID: 11400000, guid: b79c39ddf78a32d4cb30a91e6ddc03fd,
     type: 2}
   eventAliveEnemies: {fileID: 11400000, guid: 4729eab659c313a4bb41763a631f42b3, type: 2}
@@ -849,7 +865,7 @@ MonoBehaviour:
   currentSpawner: {fileID: 460866874}
   currentSpawnerPicker: {fileID: 460866873}
   currentEndPoint: {fileID: 460866879}
-  currentFormation: {fileID: 0}
+  currentFormation: {fileID: 460866880}
   needSpawnerPicker: 0
 --- !u!4 &460866878
 Transform:
@@ -902,6 +918,18 @@ MonoBehaviour:
   triggerColliders: 1
   colliderSize: {x: 1, y: 1, z: 1}
   noEndPointEnemies: []
+--- !u!114 &460866880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460866872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035ecaa687f5859418d81fb850e55ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &512104422
 GameObject:
   m_ObjectHideFlags: 0

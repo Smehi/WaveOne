@@ -102,7 +102,17 @@ namespace SemihOrhan.WaveOne.Spawners
 
         public void StartWave(int wave)
         {
+            if (currentIEnumerator != null)
+                StopCoroutine(currentIEnumerator);
 
+            currentIEnumerator = DeployTroops(wave);
+            StartCoroutine(currentIEnumerator);
+
+            if (eventSpawnerFinished != null && !waveInProgress)
+            {
+                eventSpawnerFinished.Raise(false);
+                waveInProgress = true;
+            }
         }
 
         private IEnumerator DeployTroops(int currentWave)
