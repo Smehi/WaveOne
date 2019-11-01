@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace SemihOrhan.WaveOne.Demo
 {
 #pragma warning disable 0649
-    public class MultipleManagersSpawnButton : MonoBehaviour
+    public class ManagerSpawnButton : MonoBehaviour
     {
         [SerializeField] private Button button;
 
