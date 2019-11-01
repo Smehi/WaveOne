@@ -90,6 +90,12 @@ namespace SemihOrhan.WaveOne.Spawners
 
         public void StartWave()
         {
+            if (currentWave >= enemyWaves.Count)
+            {
+                Debug.Log("Final wave already reached. No more waves left!");
+                return;
+            }
+
             if (currentIEnumerator != null)
                 StopCoroutine(currentIEnumerator);
 
@@ -105,6 +111,12 @@ namespace SemihOrhan.WaveOne.Spawners
 
         public void StartWave(int wave)
         {
+            if (wave < 0 || wave >= enemyWaves.Count)
+            {
+                Debug.LogError("Given wave number is invalid");
+                return;
+            }
+
             if (currentIEnumerator != null)
                 StopCoroutine(currentIEnumerator);
 

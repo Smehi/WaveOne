@@ -86,6 +86,8 @@ namespace SemihOrhan.WaveOne.Spawners
         // No waves in timed spawner but we still need to start the wave.
         public void StartWave(int wave)
         {
+            Debug.Log("TimedSpawner does not have waves. Spawning like normal.");
+
             if (!waveInProgress)
                 StartWave();
         }
