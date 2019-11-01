@@ -17,7 +17,7 @@ namespace SemihOrhan.WaveOne.Spawners.SpawnerPickers
         public int GetIndex()
         {
             if (index == -1)
-                index = size - 1;
+                return -1;
 
             return index--;
         }

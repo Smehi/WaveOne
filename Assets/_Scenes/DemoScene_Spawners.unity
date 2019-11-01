@@ -527,7 +527,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 320717003}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4e55ac83bc65174db92154dd830689b, type: 3}
+  m_Script: {fileID: 11500000, guid: b7570b918639c884c88b9aa882cecee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &320717006
@@ -631,13 +631,13 @@ MonoBehaviour:
   startPointType: 0
   startPointPickerType: 0
   spawnerType: 0
-  spawnerPickerType: 1
+  spawnerPickerType: 0
   endPointsType: 1
   formationType: 0
   prevStartPointType: 0
   prevStartPointPickerType: 0
   prevSpawnerType: 0
-  prevSpawnerPickerType: 1
+  prevSpawnerPickerType: 0
   prevEndPointsType: 1
   prevFormationType: 0
   currentStartPoint: {fileID: 320717008}
@@ -757,7 +757,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &460866873
 MonoBehaviour:
   m_ObjectHideFlags: 0
