@@ -12,7 +12,7 @@ namespace SemihOrhan.WaveOne
 #pragma warning restore 0414
         [SerializeField] private List<WaveConfigurator> waveConfigurators = new List<WaveConfigurator>();
 
-        public List<WaveConfigurator> WaveConfigurators { get => waveConfigurators; }
+        public List<WaveConfigurator> WaveConfigurators { get => waveConfigurators; set => waveConfigurators = value; }
 
         public bool SpawnersStarted { get; private set; }
         public int AmountSpawnersFinished { get; private set; }
