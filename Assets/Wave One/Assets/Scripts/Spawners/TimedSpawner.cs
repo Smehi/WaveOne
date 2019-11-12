@@ -29,7 +29,6 @@ namespace SemihOrhan.WaveOne.Spawners
         [SerializeField] private IntEvent eventDeployedEnemies;
         [SerializeField] private IntEvent eventAliveEnemies;
 
-        private bool setEndPoints;
         private bool waveInProgress;
         private bool isEndless;
 
@@ -41,6 +40,7 @@ namespace SemihOrhan.WaveOne.Spawners
         public float MaxTime { get => maxTime; set => maxTime = value; }
         public float SpawnRate { get => spawnRate; set => spawnRate = value; }
         public Transform Parent { get; set; }
+        public bool SetEndPoints { get; set; }
 
         private void Start()
         {
@@ -56,7 +56,7 @@ namespace SemihOrhan.WaveOne.Spawners
 
             if (endPoints)
             {
-                setEndPoints = true;
+                SetEndPoints = true;
 
                 for (int i = 0; i < enemyList.Count; i++)
                 {
@@ -144,7 +144,7 @@ namespace SemihOrhan.WaveOne.Spawners
                     if (eventAliveEnemies != null)
                         eventAliveEnemies.Raise(1);
 
-                    if (setEndPoints)
+                    if (SetEndPoints)
                     {
                         SetEndPoint(enemyList[enemyIndex].gameObject,
                                     instance,
