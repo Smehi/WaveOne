@@ -129,6 +129,7 @@ namespace SemihOrhan.WaveOne.Spawners
         private IEnumerator DeployTroops(int currentWave)
         {
             int deployedCount = 0;
+            int presetIndexEndPoint = 0;
 
             // Divide amount of enemies by the amount of deployments to get the amount to deploy.
             int toDeploy = Mathf.FloorToInt(enemyWaves[currentWave].poolSize / enemyWaves[currentWave].deployments);
@@ -151,8 +152,10 @@ namespace SemihOrhan.WaveOne.Spawners
                 bool gotRelativeGroupPositions = false;
                 List<Vector3> relativeGroupPositions = new List<Vector3>();
                 Vector3 spawnPointPos = waveConfig.StartPointScript.GetPoint();
-                int presetIndexEndPoint = Random.Range(0, endPoints.GetEndPoints(enemyWaves[currentWave].enemies[enemyIndex].gameObject).Count);
                 int spawnAmount = enemyWaves[currentWave].enemies[enemyIndex].groupSize;
+
+                if (SetEndPoints)
+                    presetIndexEndPoint = Random.Range(0, endPoints.GetEndPoints(enemyWaves[currentWave].enemies[enemyIndex].gameObject).Count);
 
                 // There aren't enough spots left in the pool to accommodate for the whole groupsize
                 // of this enemy so we have to lower the amount we want to spawn.
@@ -233,7 +236,7 @@ namespace SemihOrhan.WaveOne.Spawners
             SetAgentDestination sad = instanciatedGameObject.GetComponent<SetAgentDestination>();
             List<Transform> result = endPoints.GetEndPoints(prefabGameObject);
 
-            if (result != null)
+            if (result.Count != 0)
                 sad.CalculateValidPath(result, presetIndex);
         }
 

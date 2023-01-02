@@ -59,7 +59,7 @@ namespace SemihOrhan.WaveOne.EndPoints
         public List<Transform> GetEndPoints(GameObject enemyPrefab)
         {
             if (noEndPointEnemies.Contains(enemyPrefab) || !enemyEndPointsPairs.ContainsKey(enemyPrefab))
-                return null;
+                return new List<Transform>();
 
             return enemyEndPointsPairs[enemyPrefab];
         }

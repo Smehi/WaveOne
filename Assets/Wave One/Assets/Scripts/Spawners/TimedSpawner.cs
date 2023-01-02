@@ -99,6 +99,9 @@ namespace SemihOrhan.WaveOne.Spawners
 
         private IEnumerator DeployTroops()
         {
+            int presetIndexEndPoint = 0;
+
+
             if (isEndless)
                 maxTime = 1;
 
@@ -109,8 +112,10 @@ namespace SemihOrhan.WaveOne.Spawners
                 bool gotRelativeGroupPositions = false;
                 List<Vector3> relativeGroupPositions = new List<Vector3>();
                 Vector3 spawnPointPos = waveConfig.StartPointScript.GetPoint();
-                int presetIndexEndPoint = Random.Range(0, endPoints.GetEndPoints(enemyList[enemyIndex].gameObject).Count);
                 int spawnAmount = enemyList[enemyIndex].groupSize;
+
+                if (SetEndPoints)
+                    presetIndexEndPoint = Random.Range(0, endPoints.GetEndPoints(enemyList[enemyIndex].gameObject).Count);
 
                 for (int i = 0; i < spawnAmount; i++)
                 {
@@ -167,7 +172,7 @@ namespace SemihOrhan.WaveOne.Spawners
             SetAgentDestination sad = instanciatedGameObject.GetComponent<SetAgentDestination>();
             List<Transform> result = endPoints.GetEndPoints(prefabGameObject);
 
-            if (result != null)
+            if (result.Count != 0)
                 sad.CalculateValidPath(result, presetIndex);
         }
 
