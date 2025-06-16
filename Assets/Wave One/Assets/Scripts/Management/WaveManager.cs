@@ -51,6 +51,7 @@ namespace SemihOrhan.WaveOne
         {
             if (val && SpawnersStarted)
             {
+                AmountSpawnersFinished = 0;
                 for (int i = 0; i < waveConfigurators.Count; i++)
                 {
                     if (waveConfigurators[i].SpawnerScript.IsSpawnerDone())
