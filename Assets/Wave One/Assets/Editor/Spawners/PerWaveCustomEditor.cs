@@ -3,6 +3,8 @@ using UnityEditor;
 
 namespace SemihOrhan.WaveOne.CustomEditors
 {
+#if UNITY_2019_3_OR_NEWER
+#else
     [CustomEditor(typeof(PerWaveCustom))]
     public class PerWaveCustomEditor : Editor
     {
@@ -105,4 +107,5 @@ namespace SemihOrhan.WaveOne.CustomEditors
             so.ApplyModifiedProperties();
         }
     }
+#endif
 }

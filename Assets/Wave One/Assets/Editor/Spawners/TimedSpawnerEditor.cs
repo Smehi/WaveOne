@@ -3,6 +3,8 @@ using UnityEditor;
 
 namespace SemihOrhan.WaveOne.CustomEditors
 {
+#if UNITY_2019_3_OR_NEWER
+#else
     [CustomEditor(typeof(TimedSpawner))]
     public class TimedSpawnerEditor : Editor
     {
@@ -66,5 +68,5 @@ namespace SemihOrhan.WaveOne.CustomEditors
             so.ApplyModifiedProperties();
         }
     }
-
+#endif
 }

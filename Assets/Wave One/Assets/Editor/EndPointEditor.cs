@@ -1,9 +1,10 @@
 ﻿using SemihOrhan.WaveOne.EndPoints;
 using UnityEditor;
-using UnityEngine;
 
 namespace SemihOrhan.WaveOne.CustomEditors
 {
+#if UNITY_2019_3_OR_NEWER
+#else
     [CustomEditor(typeof(EndPoint))]
     public class EndPointEditor : Editor
     {
@@ -104,4 +105,5 @@ namespace SemihOrhan.WaveOne.CustomEditors
             so.ApplyModifiedProperties();
         }
     }
+#endif
 }

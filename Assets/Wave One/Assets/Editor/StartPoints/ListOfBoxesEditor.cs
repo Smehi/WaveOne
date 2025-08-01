@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace SemihOrhan.WaveOne.CustomEditors
 {
+#if UNITY_2019_3_OR_NEWER
+#else
     [CustomEditor(typeof(ListOfBoxes))]
     public class ListOfBoxesEditor : Editor
     {
@@ -52,4 +54,5 @@ namespace SemihOrhan.WaveOne.CustomEditors
             so.ApplyModifiedProperties();
         }
     }
+#endif
 }

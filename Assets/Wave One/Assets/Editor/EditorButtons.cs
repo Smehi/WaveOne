@@ -1,9 +1,10 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace SemihOrhan.WaveOne.CustomEditors
 {
+#if UNITY_2019_3_OR_NEWER
+#else
     public static class EditorButtons
     {
         private static GUIContent moveUpButtonContent = new GUIContent("\u2191", "move element up");
@@ -33,4 +34,5 @@ namespace SemihOrhan.WaveOne.CustomEditors
             return false;
         }
     }
+#endif
 }

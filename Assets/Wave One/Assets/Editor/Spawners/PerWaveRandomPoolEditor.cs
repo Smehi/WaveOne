@@ -3,6 +3,8 @@ using UnityEditor;
 
 namespace SemihOrhan.WaveOne.CustomEditors
 {
+#if UNITY_2019_3_OR_NEWER
+#else
     [CustomEditor(typeof(PerWaveRandomPool))]
     public class PerWaveRandomPoolEditor : Editor
     {
@@ -105,5 +107,5 @@ namespace SemihOrhan.WaveOne.CustomEditors
             so.ApplyModifiedProperties();
         }
     }
-
+#endif
 }

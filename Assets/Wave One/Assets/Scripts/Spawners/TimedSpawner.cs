@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using SemihOrhan.WaveOne.EndPoints;
+﻿using SemihOrhan.WaveOne.EndPoints;
 using SemihOrhan.WaveOne.Events;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SemihOrhan.WaveOne.Spawners
@@ -9,10 +9,13 @@ namespace SemihOrhan.WaveOne.Spawners
 #pragma warning disable 0649
     public class TimedSpawner : MonoBehaviour, ISpawner
     {
+#if UNITY_2019_3_OR_NEWER
+#else
 #pragma warning disable 0414
         [Header("Editor controls")]
         [SerializeField] private bool showEnemiesListControls = true;
 #pragma warning restore 0414
+#endif
 
         [Header("Spawner settings")]
         [SerializeField] private List<EnemyWithWeight> enemyList = new List<EnemyWithWeight>();

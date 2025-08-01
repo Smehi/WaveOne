@@ -1,8 +1,8 @@
 ﻿using UnityEditor;
-using UnityEngine;
 
 namespace SemihOrhan.WaveOne.CustomEditors
 {
+
     [CustomEditor(typeof(WaveManager))]
     public class WaveManagerEditor : Editor
     {
@@ -19,6 +19,9 @@ namespace SemihOrhan.WaveOne.CustomEditors
 
             if (!autoFindConfigs.boolValue)
             {
+#if UNITY_2019_3_OR_NEWER
+                EditorGUILayout.PropertyField(waveConfigurators);
+#else
                 EditorGUILayout.PropertyField(showListControls);
 
                 EditorGUILayout.PropertyField(waveConfigurators);
@@ -37,6 +40,7 @@ namespace SemihOrhan.WaveOne.CustomEditors
                     }
                 }
                 EditorGUI.indentLevel--;
+#endif
             }
 
             so.ApplyModifiedProperties();

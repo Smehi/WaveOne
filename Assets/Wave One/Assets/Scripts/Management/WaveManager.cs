@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace SemihOrhan.WaveOne
@@ -7,9 +6,12 @@ namespace SemihOrhan.WaveOne
     public class WaveManager : MonoBehaviour
     {
         [SerializeField] private bool autoFindConfigs = true;
+#if UNITY_2019_3_OR_NEWER
+#else
 #pragma warning disable 0414
         [SerializeField] private bool showListControls = true;
 #pragma warning restore 0414
+#endif
         [SerializeField] private List<WaveConfigurator> waveConfigurators = new List<WaveConfigurator>();
 
         public List<WaveConfigurator> WaveConfigurators { get => waveConfigurators; set => waveConfigurators = value; }

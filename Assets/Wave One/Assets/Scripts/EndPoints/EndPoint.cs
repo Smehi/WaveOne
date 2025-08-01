@@ -6,12 +6,15 @@ namespace SemihOrhan.WaveOne.EndPoints
 #pragma warning disable 0649
     public class EndPoint : MonoBehaviour
     {
+#if UNITY_2019_3_OR_NEWER
+#else
 #pragma warning disable 0414
         [Header("Editor controls")]
         [SerializeField] private bool showEndPointsListControls = true;
         [SerializeField] private bool showEnemiesListControls = true;
         [SerializeField] private bool showNoEndPointEnemiesListControls = true;
 #pragma warning restore 0414
+#endif
 
         [Header("End point settings")]
         [SerializeField] private List<SinglePoint> endPoints = new List<SinglePoint>();
@@ -88,7 +91,7 @@ namespace SemihOrhan.WaveOne.EndPoints
                     {
                         Gizmos.color = Color.green;
                         Gizmos.DrawWireCube(endPoints[i].endPoint.position, colliderSize);
-                    } 
+                    }
                 }
             }
         }
