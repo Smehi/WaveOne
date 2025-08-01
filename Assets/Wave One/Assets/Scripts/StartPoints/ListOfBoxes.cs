@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using SemihOrhan.WaveOne.StartPoints.Shapes;
+﻿using SemihOrhan.WaveOne.StartPoints.Shapes;
 using SemihOrhan.WaveOne.StartPoints.StartPointPickers;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SemihOrhan.WaveOne.StartPoints
@@ -9,8 +9,9 @@ namespace SemihOrhan.WaveOne.StartPoints
     public class ListOfBoxes : MonoBehaviour, IStartPoint
     {
         [SerializeField] private List<Box> startPoints = new List<Box>();
-        [Tooltip("Maxing all axis will mean that the minimum distance will be applied to all axis." +
-                 "This mean that the point will always choose a corner.")]
+        [Tooltip("This setting is mostly important if your minimun spawn box is the same size as the full spawn box. " +
+                 "Setting it to false will mean all axi are maxed resulting in a corner spawn. " +
+                 "Setting it to true will mean only 1 axis is maxed resulting in a random spawn on a certain face of the box.")]
         [SerializeField] private bool setOneAxisToMinimum = true;
         [SerializeField] private bool drawGizmos = true;
 
@@ -32,41 +33,36 @@ namespace SemihOrhan.WaveOne.StartPoints
 
         private Vector3 GetRandomPointInBox(Box box)
         {
-            // Get a reference the half so we don't need to devide often.
-            float boxHalfX = box.size.x / 2f;
-            float boxHalfY = box.size.y / 2f;
-            float boxHalfZ = box.size.z / 2f;
-
-            float boxMinDistHalfX = box.minDistanceFromCenter.x / 2f;
-            float boxMinDistHalfY = box.minDistanceFromCenter.y / 2f;
-            float boxMinDistHalfZ = box.minDistanceFromCenter.z / 2f;
+            // Get a reference to the half so we don't need to divide often.
+            Vector3 boxHalf = box.size / 2f;
+            Vector3 boxMinDistHalf = box.minDistanceFromCenter / 2f;
 
             // Size is the whole length of a side, so we only want half of each axis.
             // We can then randomly invert each so we can reach each octant of the box.
-            float x = Random.Range(0, boxHalfX) * GetOneOrNegativeOne();
-            float y = Random.Range(0, boxHalfY) * GetOneOrNegativeOne();
-            float z = Random.Range(0, boxHalfZ) * GetOneOrNegativeOne();
+            float x = Random.Range(0, boxHalf.x) * GetOneOrNegativeOne();
+            float y = Random.Range(0, boxHalf.y) * GetOneOrNegativeOne();
+            float z = Random.Range(0, boxHalf.z) * GetOneOrNegativeOne();
 
             if (setOneAxisToMinimum)
             {
                 switch (Random.Range(0, 3))
                 {
                     case 0:
-                        x = GetMinUpToMax(x, boxMinDistHalfX, boxHalfX);
+                        x = GetMinUpToMax(x, boxMinDistHalf.x, boxHalf.x);
                         break;
                     case 1:
-                        y = GetMinUpToMax(y, boxMinDistHalfY, boxHalfY);
+                        y = GetMinUpToMax(y, boxMinDistHalf.y, boxHalf.y);
                         break;
                     case 2:
-                        z = GetMinUpToMax(z, boxMinDistHalfZ, boxHalfZ);
+                        z = GetMinUpToMax(z, boxMinDistHalf.z, boxHalf.z);
                         break;
                 }
             }
             else
             {
-                x = GetMinUpToMax(x, boxMinDistHalfX, boxHalfX);
-                y = GetMinUpToMax(y, boxMinDistHalfY, boxHalfY);
-                z = GetMinUpToMax(z, boxMinDistHalfZ, boxHalfZ);
+                x = GetMinUpToMax(x, boxMinDistHalf.x, boxHalf.x);
+                y = GetMinUpToMax(y, boxMinDistHalf.y, boxHalf.y);
+                z = GetMinUpToMax(z, boxMinDistHalf.z, boxHalf.z);
             }
 
             // Add the Vector3 we got to the box base position because the box isn't always at (0, 0, 0).

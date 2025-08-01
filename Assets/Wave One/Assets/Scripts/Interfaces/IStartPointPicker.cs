@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SemihOrhan.WaveOne.StartPoints.StartPointPickers
+﻿namespace SemihOrhan.WaveOne.StartPoints.StartPointPickers
 {
     public interface IStartPointPicker
     {

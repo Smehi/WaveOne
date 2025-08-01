@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SemihOrhan.WaveOne.Spawners.SpawnerPickers
+﻿namespace SemihOrhan.WaveOne.Spawners.SpawnerPickers
 {
     public interface ISpawnerPicker
     {

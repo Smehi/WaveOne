@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using SemihOrhan.WaveOne.StartPoints.StartPointPickers;
+using System.Collections.Generic;
 using UnityEngine;
-using SemihOrhan.WaveOne.StartPoints.StartPointPickers;
 
 namespace SemihOrhan.WaveOne.StartPoints
 {
@@ -36,7 +36,7 @@ namespace SemihOrhan.WaveOne.StartPoints
             for (int i = 0; i < startPoints.Count; i++)
             {
                 if (startPoints[i])
-                    Gizmos.DrawWireSphere(startPoints[i].position, 0.2f); 
+                    Gizmos.DrawWireSphere(startPoints[i].position, 0.2f);
             }
 
             Gizmos.color = Color.red;
