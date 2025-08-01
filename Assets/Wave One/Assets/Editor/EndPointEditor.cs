@@ -1,5 +1,6 @@
 ﻿using SemihOrhan.WaveOne.EndPoints;
 using UnityEditor;
+using UnityEngine;
 
 namespace SemihOrhan.WaveOne.CustomEditors
 {
